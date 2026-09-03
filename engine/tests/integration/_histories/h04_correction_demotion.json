@@ -1,0 +1,19 @@
+{
+  "note": "US1 сценарий 4: корректировка ранее учтённого чека понижает уровень аватара; кастомизации не отбираются",
+  "user": { "user_id": "u04", "archetype": "cross_shopper" },
+  "events": [
+    { "receipt_id": "r1", "timestamp": "2026-03-02T10:00:00Z", "saved_amount": 800.0 },
+    { "receipt_id": "r2", "timestamp": "2026-03-02T19:00:00Z", "saved_amount": 800.0 },
+    { "receipt_id": "c1", "timestamp": "2026-03-09T12:00:00Z", "saved_amount": -800.0, "corrects_receipt_id": "r1" }
+  ],
+  "expected": {
+    "total_saved_amount": 800.0,
+    "level": 1,
+    "visual_stage": 2,
+    "state": "progressing",
+    "streak_count": 1,
+    "last_active_week": "2026-W10",
+    "has_correction_transition": true,
+    "min_unlocked_customizations": 3
+  }
+}

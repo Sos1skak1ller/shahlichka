@@ -1,0 +1,17 @@
+{
+  "note": "US1 сценарий 3: чеки с нулевой экономией и корректировка в минус — прогресс не двигается вперёд, накопление не опускается ниже 0",
+  "user": { "user_id": "u03", "archetype": "mixed" },
+  "events": [
+    { "receipt_id": "r1", "timestamp": "2026-03-02T09:00:00Z", "saved_amount": 0.0 },
+    { "receipt_id": "r2", "timestamp": "2026-03-02T15:00:00Z", "saved_amount": 0.0 },
+    { "receipt_id": "c1", "timestamp": "2026-03-09T11:00:00Z", "saved_amount": -20.0, "corrects_receipt_id": "r1" }
+  ],
+  "expected": {
+    "total_saved_amount": 0.0,
+    "level": 0,
+    "visual_stage": 1,
+    "state": "progressing",
+    "streak_count": 0,
+    "last_active_week": null
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x5.local/gaming-layer/purchase-event.schema.json",
+  "title": "PurchaseEvent",
+  "description": "Единственный вход расчётного движка. Эмитится синтетическим генератором. saved_amount берётся как есть (FR-002). receipt_id — ключ идемпотентности (FR-030a).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_id", "user_id", "store_code", "chain_code", "district_code",
+    "timestamp", "sku_list", "category_list", "total_sum", "saved_amount",
+    "device_id_hash", "payment_instrument_hash"
+  ],
+  "properties": {
+    "receipt_id": { "type": "string", "minLength": 1 },
+    "user_id": { "type": "string", "minLength": 1, "description": "обезличенный хэш карты" },
+    "store_code": { "type": "string" },
+    "chain_code": { "type": "string", "enum": ["TS5", "TSX", "TSC"] },
+    "district_code": { "type": "string", "description": "код района, не адрес" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "sku_list": { "type": "array", "items": { "type": "string" } },
+    "category_list": { "type": "array", "items": { "type": "string" } },
+    "total_sum": { "type": "number", "minimum": 0 },
+    "saved_amount": { "type": "number", "description": "сумма экономии; отрицательна у корректировки" },
+    "device_id_hash": { "type": "string" },
+    "payment_instrument_hash": { "type": "string" },
+    "corrects_receipt_id": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "не null ⇒ событие-корректировка/возврат исходного чека"
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "corrects_receipt_id": { "type": "string" } }, "required": ["corrects_receipt_id"] },
+      "then": { "description": "kind = correction: saved_amount ожидается ≤ 0" }
+    }
+  ]
+}

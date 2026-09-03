@@ -1,0 +1,26 @@
+[project]
+name = "x5-gaming-layer"
+version = "0.1.0"
+description = "Персональный игровой слой Х5 Клуб — движок, симуляция, демо-фикстуры"
+requires-python = ">=3.11"
+dependencies = [
+    "gaming-engine",
+    "gaming-sim",
+]
+
+[tool.uv.workspace]
+members = ["engine", "sim"]
+
+[tool.uv.sources]
+gaming-engine = { workspace = true }
+gaming-sim = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "jsonschema>=4.21",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["engine/tests", "sim/tests"]

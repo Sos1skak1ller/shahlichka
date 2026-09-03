@@ -1,7 +1,33 @@
 .DS_Store
+Thumbs.db
 .env
+*.env
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Python
 __pycache__/
-venv/
+*.pyc
 .venv/
+venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+uv.lock
+
+# Node / web
+node_modules/
+web/dist/
+web/build/
+*.log
+
+# Jupyter / data
 .ipynb_checkpoints/
 data/*.csv
+
+# generated (fixtures/out/*.json are committed — regenerated deterministically by fixtures/build.py)
+sim/out/

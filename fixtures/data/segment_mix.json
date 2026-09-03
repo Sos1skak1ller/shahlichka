@@ -1,0 +1,10 @@
+{
+  "note": "Иллюстративные доли сегментов среди пользователей МП по трём сетям (§3.1 ТЗ). Вход для состава популяции симуляции (US4).",
+  "segments": ["youth", "bad_habits", "parents_0_3", "mature", "senior"],
+  "by_chain": {
+    "TS5": { "youth": 0.37, "bad_habits": 0.05, "parents_0_3": 0.26, "mature": 0.21, "senior": 0.11 },
+    "TSX": { "youth": 0.31, "bad_habits": 0.03, "parents_0_3": 0.26, "mature": 0.32, "senior": 0.09 },
+    "TSC": { "youth": 0.27, "bad_habits": 0.04, "parents_0_3": 0.28, "mature": 0.24, "senior": 0.18 }
+  },
+  "chain_weights": { "TS5": 0.45, "TSX": 0.35, "TSC": 0.20 }
+}

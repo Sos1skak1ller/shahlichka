@@ -1,0 +1,17 @@
+{
+  "note": "FR-006: покупки в 3 подряд идущих ISO-недели → streak_count = 3",
+  "user": { "user_id": "u06", "archetype": "loyalist" },
+  "events": [
+    { "receipt_id": "r1", "timestamp": "2026-03-02T10:00:00Z", "saved_amount": 100.0 },
+    { "receipt_id": "r2", "timestamp": "2026-03-09T10:00:00Z", "saved_amount": 100.0 },
+    { "receipt_id": "r3", "timestamp": "2026-03-16T10:00:00Z", "saved_amount": 100.0 }
+  ],
+  "expected": {
+    "total_saved_amount": 300.0,
+    "level": 0,
+    "visual_stage": 1,
+    "state": "progressing",
+    "streak_count": 3,
+    "last_active_week": "2026-W12"
+  }
+}

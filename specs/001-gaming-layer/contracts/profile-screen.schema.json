@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x5.local/gaming-layer/profile-screen.schema.json",
+  "title": "ProfileScreenView",
+  "description": "Экран 1: профиль/аватар. Всё вычислено движком, фронт только рендерит (SC-011).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["user_id", "avatar", "savings", "streak"],
+  "properties": {
+    "user_id": { "type": "string" },
+    "display_name": { "type": ["string", "null"], "description": "псевдоним/никнейм, НЕ ФИО (FR-029)" },
+    "avatar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "visual_stage", "state", "unlocked_customizations"],
+      "properties": {
+        "level": { "type": "integer", "minimum": 0 },
+        "visual_stage": { "type": "integer", "minimum": 1 },
+        "state": { "type": "string", "enum": ["progressing", "level_up_pending", "max_level"] },
+        "unlocked_customizations": { "type": "array", "items": { "type": "string" } },
+        "last_transition_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "savings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_saved_amount", "current_threshold", "next_threshold", "progress_ratio"],
+      "properties": {
+        "total_saved_amount": { "type": "number", "minimum": 0 },
+        "current_threshold": { "type": "number", "minimum": 0 },
+        "next_threshold": { "type": ["number", "null"], "description": "null на максимальном уровне" },
+        "progress_ratio": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "streak": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["streak_count", "last_active_week"],
+      "properties": {
+        "streak_count": { "type": "integer", "minimum": 0 },
+        "last_active_week": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}-W\\d{2}$",
+          "description": "null ⇒ подтверждённых покупок ещё не было"
+        }
+      }
+    }
+  }
+}

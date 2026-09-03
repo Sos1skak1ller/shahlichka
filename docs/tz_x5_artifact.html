@@ -1,0 +1,781 @@
+<title>Игровой слой Х5 Клуб</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --bg:#F6F3EC;
+    --surface:#FFFFFF;
+    --surface-2:#EFEAE0;
+    --border:#DED7C6;
+    --text:#201F1A;
+    --text-muted:#6B6656;
+    --accent:#3B7A57;
+    --accent-strong:#2C5F44;
+    --accent-soft:#E4EFE6;
+    --accent-2:#B9762A;
+    --accent-2-soft:#F5E9D7;
+    --danger:#A83B32;
+    --danger-soft:#F5E1DD;
+    --open:#7A5FB0;
+    --open-soft:#EAE3F5;
+    --shadow: 0 1px 2px rgba(32,31,26,0.06), 0 8px 24px -12px rgba(32,31,26,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14170F;
+      --surface:#1B1F16;
+      --surface-2:#222818;
+      --border:#333B26;
+      --text:#E9E6D9;
+      --text-muted:#A8A48E;
+      --accent:#6FBF8B;
+      --accent-strong:#8ED1A6;
+      --accent-soft:#213325;
+      --accent-2:#E0A857;
+      --accent-2-soft:#382C18;
+      --danger:#E0897E;
+      --danger-soft:#3A211D;
+      --open:#B79BE0;
+      --open-soft:#2A2436;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14170F;
+    --surface:#1B1F16;
+    --surface-2:#222818;
+    --border:#333B26;
+    --text:#E9E6D9;
+    --text-muted:#A8A48E;
+    --accent:#6FBF8B;
+    --accent-strong:#8ED1A6;
+    --accent-soft:#213325;
+    --accent-2:#E0A857;
+    --accent-2-soft:#382C18;
+    --danger:#E0897E;
+    --danger-soft:#3A211D;
+    --open:#B79BE0;
+    --open-soft:#2A2436;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'PT Serif', Georgia, 'Times New Roman', serif;
+    font-size:16.5px;
+    line-height:1.65;
+    padding:0;
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding:48px 24px 96px;
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    gap:48px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    .page{grid-template-columns:1fr;}
+    nav.toc{position:static !important; order:2; margin-top:32px;}
+    main{order:1;}
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Manrope',system-ui,sans-serif;
+    color:var(--text);
+    text-wrap:balance;
+    line-height:1.2;
+  }
+
+  header.masthead{
+    grid-column:1/-1;
+    border-bottom:1px solid var(--border);
+    padding-bottom:28px;
+    margin-bottom:8px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+  }
+  h1.title{
+    font-size:clamp(28px,4vw,40px);
+    font-weight:800;
+    margin:10px 0 12px;
+  }
+  .subtitle{
+    font-family:'PT Serif',serif;
+    font-size:17px;
+    color:var(--text-muted);
+    max-width:66ch;
+    margin:0 0 18px;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+  }
+  .meta-row b{color:var(--text); font-weight:600;}
+
+  .naming-note{
+    grid-column:1/-1;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 18px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-top:18px;
+  }
+  .naming-note b{color:var(--text);}
+
+  /* status legend + badges */
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:18px 0 0;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:12px;
+    padding:5px 10px 5px 8px;
+    border-radius:999px;
+    border:1px solid transparent;
+    white-space:nowrap;
+  }
+  .badge .dot{width:7px;height:7px;border-radius:50%;flex:none;}
+  .badge.done{background:var(--accent-soft); color:var(--accent-strong); border-color:color-mix(in srgb, var(--accent) 35%, transparent);}
+  .badge.done .dot{background:var(--accent);}
+  .badge.assume{background:var(--accent-2-soft); color:var(--accent-2); border-color:color-mix(in srgb, var(--accent-2) 35%, transparent);}
+  .badge.assume .dot{background:var(--accent-2);}
+  .badge.open{background:var(--open-soft); color:var(--open); border-color:color-mix(in srgb, var(--open) 35%, transparent);}
+  .badge.open .dot{background:var(--open);}
+  .badge.deviate{background:var(--danger-soft); color:var(--danger); border-color:color-mix(in srgb, var(--danger) 35%, transparent);}
+  .badge.deviate .dot{background:var(--danger);}
+
+  /* TOC */
+  nav.toc{
+    position:sticky;
+    top:32px;
+    align-self:start;
+    font-family:'Manrope',sans-serif;
+    font-size:13.5px;
+  }
+  nav.toc .toc-label{
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  nav.toc ol{
+    list-style:none;
+    margin:0; padding:0;
+    border-left:1px solid var(--border);
+  }
+  nav.toc li{margin:0;}
+  nav.toc a{
+    display:block;
+    color:var(--text-muted);
+    text-decoration:none;
+    padding:6px 0 6px 14px;
+    border-left:2px solid transparent;
+    margin-left:-1px;
+    font-weight:500;
+  }
+  nav.toc a:hover{color:var(--text); border-left-color:var(--border);}
+  nav.toc a .num{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--accent);
+    margin-right:6px;
+    font-size:12px;
+  }
+
+  main{min-width:0;}
+  section{
+    padding-top:40px;
+    margin-top:4px;
+    border-top:1px solid var(--border);
+  }
+  section:first-of-type{border-top:none;}
+  section h2{
+    font-size:22px;
+    font-weight:800;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin:0 0 6px;
+  }
+  section h2 .secnum{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--accent);
+    font-size:15px;
+    font-weight:600;
+  }
+  section h3{
+    font-size:16.5px;
+    font-weight:700;
+    margin:26px 0 10px;
+  }
+  p{margin:0 0 14px; max-width:70ch;}
+  ul,ol{margin:0 0 14px; padding-left:22px; max-width:68ch;}
+  li{margin-bottom:6px;}
+  strong{font-weight:700;}
+  code{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.87em;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    padding:1px 5px;
+    border-radius:4px;
+  }
+
+  blockquote.quote{
+    margin:0 0 18px;
+    padding:12px 16px;
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    border-radius:0 8px 8px 0;
+    font-style:italic;
+    color:var(--text);
+    max-width:68ch;
+  }
+
+  /* callouts */
+  .callout{
+    border:1px solid var(--border);
+    border-left:4px solid var(--text-muted);
+    border-radius:8px;
+    background:var(--surface);
+    padding:16px 18px;
+    margin:0 0 18px;
+    box-shadow:var(--shadow);
+  }
+  .callout .callout-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+  }
+  .callout p:last-child{margin-bottom:0;}
+  .callout.deviate{border-left-color:var(--danger); background:linear-gradient(180deg, var(--danger-soft), var(--surface) 60%);}
+  .callout.deviate .callout-head{color:var(--danger);}
+  .callout.open{border-left-color:var(--open);}
+  .callout.open .callout-head{color:var(--open);}
+
+  .defense-line{
+    font-family:'Manrope',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-muted);
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--border);
+  }
+  .defense-line em{font-style:normal; color:var(--text); font-weight:700;}
+
+  /* tables */
+  .table-wrap{
+    overflow-x:auto;
+    margin:0 0 20px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:560px;
+    font-family:'Manrope',sans-serif;
+    font-size:13.5px;
+    background:var(--surface);
+  }
+  th,td{
+    text-align:left;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  thead th{
+    background:var(--surface-2);
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.num, th.num{text-align:right; font-variant-numeric:tabular-nums;}
+  td.highlight{color:var(--accent-strong); font-weight:700;}
+
+  /* entity blocks */
+  .entity-group h4{
+    font-family:'Manrope',sans-serif;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-muted);
+    margin:22px 0 10px;
+  }
+  .entity{
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:10px;
+    background:var(--surface);
+  }
+  .entity .ename{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    color:var(--accent-strong);
+    font-size:13.5px;
+  }
+  .entity .efields{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-top:4px;
+    line-height:1.7;
+    word-break:break-word;
+  }
+
+  /* architecture diagram block */
+  .arch{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    line-height:1.75;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 20px;
+    overflow-x:auto;
+    white-space:pre;
+    box-shadow:var(--shadow);
+  }
+  .arch .node{color:var(--accent-strong); font-weight:600;}
+  .arch .comment{color:var(--text-muted); font-style:normal;}
+
+  /* scope pills row */
+  .scope-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    margin-bottom:20px;
+  }
+  .scope-card{
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+    background:var(--surface);
+  }
+  .scope-card.out{opacity:0.6;}
+  .scope-card .sc-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+  }
+  .scope-card .sc-note{
+    font-size:13px;
+    color:var(--text-muted);
+    margin-top:6px;
+  }
+
+  footer.doc-footer{
+    grid-column:1/-1;
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--text-muted);
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="eyebrow">Техническое задание · v0.1 черновик для защиты</div>
+    <h1 class="title">Игровой слой Х5 Клуб</h1>
+    <p class="subtitle">Персональный игровой слой поверх программы лояльности: аватар от суммы экономии, ML-персонализация челленджей, реферальная программа и антифрод — на синтетических данных, для сегмента родителей с детьми до 3 лет.</p>
+    <div class="meta-row">
+      <span><b>Дата</b> · 03.09.2026</span>
+      <span><b>Сети</b> · ТС5 / ТСХ / ТСЧ</span>
+      <span><b>Экраны прототипа</b> · 3 (профиль/аватар, челлендж, реферал)</span>
+      <span><b>Данные</b> · только синтетические</span>
+    </div>
+    <div class="legend">
+      <span class="badge done"><span class="dot"></span>Решено</span>
+      <span class="badge assume"><span class="dot"></span>Предположение</span>
+      <span class="badge open"><span class="dot"></span>Открыто</span>
+      <span class="badge deviate"><span class="dot"></span>Отклонение от кейса</span>
+    </div>
+    <div class="naming-note"><b>Ограничение по неймингу</b> (с доски): в названии продукта не используем слово «ИИ» / AI напрямую.</div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-label">Содержание</div>
+    <ol>
+      <li><a href="#s0"><span class="num">0</span>Как читать документ</a></li>
+      <li><a href="#s1"><span class="num">1</span>Проблема и контекст</a></li>
+      <li><a href="#s2"><span class="num">2</span>Требования vs решения</a></li>
+      <li><a href="#s3"><span class="num">3</span>Сегмент пользователей</a></li>
+      <li><a href="#s4"><span class="num">4</span>Продуктовая концепция</a></li>
+      <li><a href="#s5"><span class="num">5</span>Скоуп механик</a></li>
+      <li><a href="#s6"><span class="num">6</span>Аналоги и дифференциация</a></li>
+      <li><a href="#s7"><span class="num">7</span>Гипотезы (RICE)</a></li>
+      <li><a href="#s8"><span class="num">8</span>System Design</a></li>
+      <li><a href="#s9"><span class="num">9</span>Доменная модель</a></li>
+      <li><a href="#s10"><span class="num">10</span>ML System Design</a></li>
+      <li><a href="#s11"><span class="num">11</span>План пилота</a></li>
+      <li><a href="#s12"><span class="num">12</span>Экономика наград</a></li>
+      <li><a href="#s13"><span class="num">13</span>Риски и открытые вопросы</a></li>
+      <li><a href="#s14"><span class="num">14</span>Вне скоупа</a></li>
+      <li><a href="#s15"><span class="num">15</span>Команда и роли</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="s0">
+      <h2><span class="secnum">0</span>Как читать этот документ</h2>
+      <p>Кейс задаёт два слоя: жёсткие требования («менять нельзя») и зону свободы команды. Здесь оба слоя сведены в одну модель продукта, приняты конкретные решения там, где раньше было «на подумать» и «решим завтра», и добавлены System Design и ML System Design под финальный, а не максимальный, скоуп.</p>
+      <p>Два решения ниже прямо отходят от буквальной формулировки кейса — они помечены значком <span class="badge deviate"><span class="dot"></span>отклонение</span> и разобраны в разделе 1.3, чтобы команда защищала их осознанно, а не наткнулась на вопрос жюри врасплох.</p>
+    </section>
+
+    <section id="s1">
+      <h2><span class="secnum">1</span>Проблема и контекст</h2>
+
+      <h3>1.1 Проблема одной фразой</h3>
+      <blockquote class="quote">Когда пользователь регулярно покупает повседневные товары и выбирает между сетями со похожими ценами и акциями, он хочет понимать и ощущать накопительный результат своих покупок, соответствующий его привычкам, — чтобы регулярное возвращение в одну программу лояльности приносило больше ценности, чем отдельная случайная скидка.</blockquote>
+
+      <h3>1.2 Как это устроено сейчас и во что обходится бизнесу</h3>
+      <p><strong>Сейчас (по открытым данным Х5 Клуб):</strong></p>
+      <ul>
+        <li>Единый счёт баллов, привязанный к номеру телефона, работает во всех сетях экосистемы (Пятёрочка, Перекрёсток, Виктория, Слата, Налету, Много Лосося) — участников более 77 млн.</li>
+        <li>Кешбэк дифференцирован: 0,5% по умолчанию, 1% на «любимые категории», до 7% по карте «Апельсин». Курс списания — 10 баллов = 1 ₽, лимит на долю чека 30–50%.</li>
+        <li>Точечные, не персональные механики уже есть: «Крутамба», «Змейка», «Холодильник выгоды», «Выгодоворот» (882 тыс. игроков, ~50% дошли до 5 уровня, 20% прошли полностью, ~5% стали кросс-клиентами).</li>
+        <li>Персонального прогресса, аватара, рейтинга экономии и работающего реферального канала в открытых источниках не обнаружено — целостного игрового слоя нет.</li>
+      </ul>
+      <p><strong>Во что это обходится бизнесу:</strong></p>
+      <ul>
+        <li>Рост частоты и retention держится на промо и push, а не на привычке — каждый прирост частоты покупается скидкой.</li>
+        <li>Кросс-продажи между сетями остаются низкими (~5% даже в удачной кампании), реферальный канал почти не работает.</li>
+        <li>Обратный риск: награды без персонализации размывают маржу (прецедент — реакция «лохотрон» на «Спасибоманию»), плюс риск накрутки рефералов.</li>
+      </ul>
+
+      <h3>1.3 Отклонения от буквального текста кейса</h3>
+
+      <div class="callout deviate">
+        <div class="callout-head"><span class="badge deviate"><span class="dot"></span>Отклонение №1</span>LLM заменён на классический ML-пайплайн</div>
+        <p>Кейс дословно требует «LLM-агент для персональных челленджей». Это оверинжиниринг для MVP-демо на синтетике: LLM добавляет непредсказуемость вывода, требует guardrail-валидации на каждый вызов, стоит токенов и хуже объясняется жюри, чем прозрачная ML-модель. Требование по сути — «персонально подобрать челлендж по истории покупок» — полностью закрывается двухступенчатым ML-пайплайном (шаблоны + ранжирующая модель), без единого LLM-вызова.</p>
+        <div class="defense-line">Текст для защиты: <em>«Мы сознательно заменили LLM-агента на объяснимый ML-пайплайн — тот же результат, персональный челлендж по истории покупок, но воспроизводимо и без риска галлюцинаций на демо».</em></div>
+      </div>
+
+      <div class="callout deviate">
+        <div class="callout-head"><span class="badge deviate"><span class="dot"></span>Отклонение №2</span>Рейтинг экономии убран из скоупа целиком</div>
+        <p>Кейс перечисляет рейтинг экономии («дом/район/город») как один из 3–4 экранов прототипа. Команда убрала эту механику целиком, а не только уровень «дом» — честная k-anonymity на уровне дома технически недостижима без фальсификации данных синтетическими «соседями», а это прямо конфликтует с запретом кейса на рейтинг, который выдаёт личность. Три оставшихся экрана укладываются в допустимый диапазон «3–4».</p>
+        <div class="defense-line">Текст для защиты: <em>«Рейтинг убран из MVP: честная анонимность на районном/домовом уровне требует объёма данных, которого нет на синтетике 1–10 тыс. без искусственного завышения кластеров. Три оставшихся экрана полностью закрывают требование "3–4 экрана"».</em></div>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2><span class="secnum">2</span>Обязательные требования кейса vs решения команды</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:34px">#</th><th>Требование кейса</th><th>Статус</th><th>Решение команды</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Игровой слой, начисление, персонализация, антифрод — с нуля, на синтетике</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Синтетический генератор чеков/профилей/соц-графа — единственный источник данных</td></tr>
+            <tr><td>2</td><td>Публичные механики X5 Club — только контекст, не готовое решение</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>См. раздел 6</td></tr>
+            <tr><td>3</td><td>Нужно выбрать сегмент пользователей</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Родители с детьми до 3 лет — раздел 3</td></tr>
+            <tr><td>4</td><td>LLM-агент для челленджей + рекомендатель механики</td><td><span class="badge deviate"><span class="dot"></span>отклонение</span></td><td>Заменён на ML-пайплайн, 1.3 №1 и раздел 10</td></tr>
+            <tr><td>5</td><td>3–4 экрана: профиль/аватар, челлендж, рейтинг, реферал</td><td><span class="badge deviate"><span class="dot"></span>отклонение</span></td><td>3 экрана, рейтинг исключён — 1.3 №2</td></tr>
+            <tr><td>6</td><td>Антифрод: накрутка чеков и рефералов + экономика наград</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Взвешенный scorecard, фиксированный объяснимый порог</td></tr>
+            <tr><td>7</td><td>Симуляция на 1–10 тыс. синтетических пользователей</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Когортная симуляция по архетипам, раздел 10.5</td></tr>
+            <tr><td>8</td><td>Одностраничный план пилота</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Раздел 11</td></tr>
+            <tr><td>9</td><td>Успех: hit rate ≥70% на 30–50 профилях; награда ≤ прирост маржи</td><td><span class="badge assume"><span class="dot"></span>предположение</span></td><td>Метрика принята, цифры маржи открыты — раздел 12</td></tr>
+            <tr><td>10</td><td>Антифрод: precision важнее recall, порог объясним</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Метрика считается на фрод-классе, не accuracy</td></tr>
+            <tr><td>11</td><td>Неприемлемо: награда съедает эффект; ФИО/адрес не собираем</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Бюджет как % от маржи; ФИО/адрес нигде не хранятся</td></tr>
+            <tr><td>12</td><td>Вне скоупа: боевые системы, ПДн, реальная нагрузка и т.д.</td><td><span class="badge done"><span class="dot"></span>решено</span></td><td>Веб-фронт на статичных JSON-фикстурах</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s3">
+      <h2><span class="secnum">3</span>Сегмент пользователей</h2>
+      <h3>3.1 Данные по трём сетям экосистемы</h3>
+      <p>Три сети, которые должны попасть в приложение: <strong>ТС5, ТСХ, ТСЧ</strong>. Для каждой — доля 5 сегментов среди «гостей» (все покупатели) и отдельно среди «пользователей МП» (уже пользуются мобильным приложением — это и есть реальная аудитория игрового слоя).</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Сеть</th><th>Аудитория</th><th class="num">Молодёжь</th><th class="num">С вредн. привычками</th><th class="num">С детьми до 3 лет</th><th class="num">Зрелые</th><th class="num">Старшие</th></tr></thead>
+          <tbody>
+            <tr><td>ТС5</td><td>Гости</td><td class="num">34%</td><td class="num">12%</td><td class="num">15%</td><td class="num">19%</td><td class="num">21%</td></tr>
+            <tr><td>ТС5</td><td>Пользователи МП</td><td class="num">37%</td><td class="num">5%</td><td class="num highlight">26%</td><td class="num">21%</td><td class="num">11%</td></tr>
+            <tr><td>ТСХ</td><td>Гости</td><td class="num">40%</td><td class="num">8%</td><td class="num">18%</td><td class="num">23%</td><td class="num">12%</td></tr>
+            <tr><td>ТСХ</td><td>Пользователи МП</td><td class="num">31%</td><td class="num">3%</td><td class="num highlight">26%</td><td class="num">32%</td><td class="num">9%</td></tr>
+            <tr><td>ТСЧ</td><td>Гости</td><td class="num">29%</td><td class="num">9%</td><td class="num">18%</td><td class="num">21%</td><td class="num">23%</td></tr>
+            <tr><td>ТСЧ</td><td>Пользователи МП</td><td class="num">27%</td><td class="num">4%</td><td class="num highlight">28%</td><td class="num">24%</td><td class="num">18%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.2 Вывод и выбор сегмента</h3>
+      <p>Один сигнал устойчив во всех трёх сетях без исключений: доля сегмента «взрослые с детьми до 3 лет» среди пользователей мобильного приложения выше, чем среди гостей, — и разрыв большой:</p>
+      <ul>
+        <li>ТС5: 15% → 26% <strong>(+11 п.п.)</strong></li>
+        <li>ТСХ: 18% → 26% <strong>(+8 п.п.)</strong></li>
+        <li>ТСЧ: 18% → 28% <strong>(+10 п.п.)</strong></li>
+      </ul>
+      <p>Ни один другой сегмент не растёт так стабильно и однонаправленно во всех трёх сетях сразу (доля «молодёжи» и «старших», наоборот, в среднем падает среди пользователей МП относительно гостей). Это одновременно подтверждает гипотезу Артёма с доски и даёт ей количественное обоснование, которого раньше не было.</p>
+
+      <div class="callout">
+        <div class="callout-head" style="color:var(--accent-strong)"><span class="badge done"><span class="dot"></span>решено</span>Целевой сегмент</div>
+        <p>Взрослые с детьми до 3 лет, пользователи мобильного приложения — во всех трёх сетях экосистемы.</p>
+      </div>
+
+      <p>Почему это хороший выбор продуктово, а не только по цифрам: максимально предсказуемый повторяющийся паттерн покупок (подгузники, детское питание, гигиена) — легко считается «накопительная цель» и легко проверяется гипотеза H1; сегмент уже сверхпредставлен в приложении — бюджет идёт на углубление вовлечённости, а не на привлечение новой аудитории; логика выбора объяснима жюри, в отличие от произвольного «просто самый большой сегмент».</p>
+
+      <div class="callout open">
+        <div class="callout-head"><span class="badge open"><span class="dot"></span>открыто</span>Финальная ратификация</div>
+        <p>Вывод сделан из присланных данных, но финальное слово по сегменту — за командой на созвоне.</p>
+      </div>
+    </section>
+
+    <section id="s4">
+      <h2><span class="secnum">4</span>Продуктовая концепция</h2>
+      <p><strong>Один абзац сути.</strong> Персональный игровой слой поверх Х5 Клуб, в котором не активность в игре, а реальная экономия пользователя на покупках растит его аватара, открывает кастомизацию и подтягивает более релевантный следующий персональный челлендж — вместо того чтобы показывать всем одинаковые скидки и push-уведомления.</p>
+      <blockquote class="quote">Улучшаем аватара от количества сэкономленных денег, а не наоборот — прогресс всегда идёт от покупательского поведения к награде, никогда в обратную сторону. (Дословно с доски.)</blockquote>
+
+      <h3>Основной цикл (core loop)</h3>
+      <ol>
+        <li>Пользователь покупает как обычно → чек попадает в событийный поток.</li>
+        <li>Система считает сумму экономии на чеке (не сумму траты).</li>
+        <li>Экономия двигает прогресс-бар аватара; при пороге — уровень вверх + разблокировка кастомизации (по аналогии с акцией про медведей-коллекционок — брелки/скины за уровни).</li>
+        <li>ML-пайплайн генерирует следующий персональный челлендж по истории покупок пользователя (или его сегмент-кэшу).</li>
+        <li>Реферальная программа работает параллельно: приглашение → регистрация → подтверждённая покупка → отложенная выдача награды.</li>
+        <li>Антифрод и бюджетный лимит проверяют каждый чек и реферал на этом пути, не мешая обычному пользователю.</li>
+      </ol>
+
+      <h3>Чем отличаемся (финальная формулировка)</h3>
+      <p>Постоянный слой, привязанный напрямую к деньгам и реальной экономии, а не к игровой активности или разовой кампании; персонализация — через ML по истории покупок, а не единый сценарий для всех; экономика награды считается и лимитируется заранее (стоимость ≤ ожидаемый прирост маржи), а не проверяется постфактум.</p>
+    </section>
+
+    <section id="s5">
+      <h2><span class="secnum">5</span>Финальный скоуп механик</h2>
+      <div class="scope-grid">
+        <div class="scope-card"><div class="sc-title">Аватар / прогресс <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">От суммы экономии, state-machine с уровнями</div></div>
+        <div class="scope-card"><div class="sc-title">Персональные челленджи <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">ML-пайплайн вместо LLM</div></div>
+        <div class="scope-card"><div class="sc-title">Таймер механик <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">Упрощён до rule-based, раздел 10.2</div></div>
+        <div class="scope-card"><div class="sc-title">Реферальная программа <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">Отложенная награда, антифрод self-referral</div></div>
+        <div class="scope-card"><div class="sc-title">Персонализация акций <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">Ранжирование пула акций «маркетинга»</div></div>
+        <div class="scope-card"><div class="sc-title">Антифрод <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">Обязателен по кейсу независимо от механик</div></div>
+        <div class="scope-card"><div class="sc-title">Симуляция <span class="badge done"><span class="dot"></span>in</span></div><div class="sc-note">Обязательна по кейсу независимо от механик</div></div>
+        <div class="scope-card out"><div class="sc-title">Рейтинг экономии <span class="badge deviate"><span class="dot"></span>out</span></div><div class="sc-note">Убран целиком, см. 1.3 №2</div></div>
+      </div>
+    </section>
+
+    <section id="s6">
+      <h2><span class="secnum">6</span>Аналоги и дифференциация</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Аналог</th><th>Плюс</th><th>Минус</th><th>Мы отличаемся</th></tr></thead>
+          <tbody>
+            <tr><td>X5 Club «Выгодоворот»</td><td>Доказал вовлечение аудитории X5 (882 тыс.)</td><td>Разовая кампания, одинакова для всех</td><td>Постоянный слой, персональный челлендж</td></tr>
+            <tr><td>Золотое Яблоко «Бьюти-тамагочи»</td><td>Сильная эмоц. привязка через аватара (2,7 млн)</td><td>Прогресс от игровой активности, не покупок</td><td>Прогресс = реальная экономия и покупки категорий</td></tr>
+            <tr><td>Спортмастер, квест+колесо</td><td>Доказанный эффект на чек (+15%, 1 млн/мес)</td><td>Задания универсальные, не персональные</td><td>Задания рекомендует ML под сегмент и историю</td></tr>
+            <tr><td>СберСпасибо «Спасибомания»</td><td>Масштаб и виральность через соцсети</td><td>Непрозрачная экономика → «лохотрон»</td><td>Экономика награды считается заранее, а не постфактум</td></tr>
+            <tr><td>Duolingo</td><td>Лучший движок привычки: стрик + соц. давление</td><td>Другая область, нет маржи и антифрода</td><td>Стрик/лига на покупках + явный расчёт экономики и антифрод</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s7">
+      <h2><span class="secnum">7</span>Продуктовые гипотезы (RICE)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Гипотеза</th><th>Метрика</th><th class="num">R</th><th class="num">I</th><th class="num">C</th><th class="num">E</th><th class="num">RICE</th></tr></thead>
+          <tbody>
+            <tr><td>H1</td><td>Аватар накопленной экономии на главном экране повышает возврат D7 без push</td><td>D7-возврат без уведомления, +4 п.п.</td><td class="num">100 000</td><td class="num">1</td><td class="num">0,6</td><td class="num">2,0</td><td class="num highlight">30 000</td></tr>
+            <tr><td>H2</td><td>Стрик из подтверждённых чеком покупок повышает регулярность потребления</td><td>Покупки в ≥3 из 4 недель, +5 п.п.</td><td class="num">45 000</td><td class="num">1</td><td class="num">0,5</td><td class="num">2,0</td><td class="num">11 250</td></tr>
+            <tr><td>H3</td><td>Прогрессивная недельная награда снижает отток из челленджа сильнее плоской</td><td>Продолжили 3+ недели подряд, +6 п.п.</td><td class="num">45 000</td><td class="num">1</td><td class="num">0,5</td><td class="num">2,5</td><td class="num">9 000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>H1 — приоритет №1 по RICE и одновременно самая простая в реализации (детерминированная state-machine, не ML) — логично, что это же и есть главный экран демо.</p>
+    </section>
+
+    <section id="s8">
+      <h2><span class="secnum">8</span>System Design</h2>
+      <h3>8.1 Точка встраивания</h3>
+      <p>Новый раздел внутри существующего таб-бара приложения (условно «Клуб»), рядом с QR-картой Х5 Клуб. QR-номер карты — ключ профиля игрового слоя. Кешбэк-баллы Х5 Клуб и награды игрового слоя — разные, не пересекающиеся валюты.</p>
+
+      <h3>8.2 Сервисы</h3>
+      <div class="arch">Gamification-BFF
+ ├── <span class="node">Profile &amp; Avatar Service</span>   — state-machine аватара, уровни, пороги
+ ├── <span class="node">Challenge Service</span>          — ML-пайплайн генерации челленджа (10.1),
+ │                                 кэш по (сегмент, неделя)
+ ├── <span class="node">Recommendation / Timing</span>    — rule-based таймер: новый челлендж
+ │                                 vs напоминание про реферал; anti-fatigue
+ │                                 переключение после N циклов без реакции
+ ├── <span class="node">Referral Service</span>           — invited → registered →
+ │                                 purchase_confirmed → reward_released
+ ├── <span class="node">Promo Ranking Service</span>      — ранжирование акций «маркетинга» под профиль
+ ├── <span class="node">Antifraud Service</span>          — синхронный scoring чеков и рефералов
+ └── <span class="node">Simulation Engine</span>          — офлайн-прогон 1–10 тыс. синтетических
+                                   профилей через тот же стек сервисов</div>
+
+      <div class="callout deviate">
+        <div class="callout-head"><span class="badge deviate"><span class="dot"></span>следствие отказа от LLM</span>Кэш челленджей упрощён</div>
+        <p>Исходная идея кэшировать челленджи по «сегмент+неделя+район+рейтинг» была продиктована экономией токенов LLM-вызовов. Без LLM инференс ML-модели локальный и дешёвый — кэш остаётся полезен только как оптимизация производительности демо, а не необходимость. Ключ кэша упрощён до <code>(сегмент, неделя)</code> — «район» и «рейтинг» убраны вместе с самой механикой рейтинга.</p>
+      </div>
+
+      <h3>8.3 Событийный core</h3>
+      <p>Единая шина событий <code>purchase_event</code>: <code>user_id, store_code, district_code, timestamp, sku_list[], category_list[], sum, saved_amount, device_id_hash, payment_instrument_hash</code>. Синтетический генератор архетипов пишет в неё; от неё веерно подписаны Avatar, Challenge-триггер и Antifraud. Тот же код обслуживает и демо, и симуляцию — результаты не расходятся.</p>
+
+      <h3>8.4 MVP-реализация</h3>
+      <p>Веб-фронт (React) со статичными JSON-фикстурами вместо БД/очередей — демо не должно падать от сети или нагрузки на сцене. Контракты API проектируются так, будто фикстура — текущая реализация одного и того же интерфейса, чтобы не переписывать фронт при переходе к целевой архитектуре с реальной БД.</p>
+    </section>
+
+    <section id="s9">
+      <h2><span class="secnum">9</span>Доменная модель</h2>
+
+      <div class="entity-group">
+        <h4>Profile &amp; Avatar</h4>
+        <div class="entity"><div class="ename">User</div><div class="efields">user_id (хэш карты Х5 Клуб) · segment · archetype · registration_date · device_id_hash · payment_instrument_hash · current_avatar_level · total_saved_amount · streak_count</div></div>
+        <div class="entity"><div class="ename">Avatar</div><div class="efields">avatar_id · user_id (1:1) · level · visual_stage (1 из 4–5) · state · last_transition_at · transition_history[]</div></div>
+
+        <h4>Referral</h4>
+        <div class="entity"><div class="ename">Referral</div><div class="efields">referral_id · inviter_user_id · invitee_token → invitee_user_id · status (invited/registered/purchase_confirmed/reward_released/blocked) · status_timestamps{} · reward_amount · fraud_score_ref</div></div>
+
+        <h4>Challenge &amp; Recommendation</h4>
+        <div class="entity"><div class="ename">ChallengeTemplate</div><div class="efields">template_id · mechanic_type · condition_pattern · reward_formula · eligibility_rules</div></div>
+        <div class="entity"><div class="ename">Challenge</div><div class="efields">challenge_id · cache_key (segment+week) · template_id · filled_params{} · generated_by (ml_ranker / rule / fallback — <strong>не llm</strong>) · budget_cost · status · valid_from/valid_to</div></div>
+        <div class="entity"><div class="ename">RecommendationLog</div><div class="efields">user_id/segment · chosen_template_id · algo_version · context_features{} · response_signal</div></div>
+
+        <h4>Promo Ranking</h4>
+        <div class="entity"><div class="ename">Promo</div><div class="efields">promo_id · category · discount_type · margin_impact · eligibility_rules</div></div>
+        <div class="entity"><div class="ename">PromoRanking</div><div class="efields">user_id · promo_id · rank_score · shown_at · redeemed</div></div>
+
+        <h4>Antifraud &amp; экономика</h4>
+        <div class="entity"><div class="ename">FraudScore</div><div class="efields">entity_type (receipt/referral) · entity_id · score · threshold_used · decision · feature_vector{} · explanation{}</div></div>
+        <div class="entity"><div class="ename">RewardLedger</div><div class="efields">user_id · period · accrued_reward · budget_cap (% от маржи/неделю) · spent_to_date</div></div>
+
+        <h4>Событийный core &amp; симуляция</h4>
+        <div class="entity"><div class="ename">PurchaseEvent</div><div class="efields">event_id · user_id · store_code · district_code · timestamp · sku_list[] · category_list[] · sum · saved_amount · device_id_hash · payment_instrument_hash</div></div>
+        <div class="entity"><div class="ename">SyntheticUserProfile</div><div class="efields">archetype_type · chain_code (ТС5/ТСХ/ТСЧ) · segment · generation_params{} · behavior_distribution{}</div></div>
+        <div class="entity"><div class="ename">SimulationRun</div><div class="efields">run_id · population_size (1–10 тыс.) · chain_mix (доли по 3 сетям и сегментам, раздел 3.1) · parameters{}</div></div>
+        <div class="entity"><div class="ename">PilotMetric</div><div class="efields">run_id/period · metric_name · kind (primary/guardrail) · value</div></div>
+      </div>
+    </section>
+
+    <section id="s10">
+      <h2><span class="secnum">10</span>ML System Design</h2>
+      <p>Принцип для всей ML-части: там, где не критично для метрики успеха — предпочитаем простую, объяснимую модель сложной. Тот же принцип, который команда уже применила к антифроду и к отказу от LLM.</p>
+
+      <h3>10.1 Генерация персонального челленджа (замена LLM-агента)</h3>
+      <p>Двухступенчатый classic-recsys пайплайн вместо LLM-генерации:</p>
+      <ol>
+        <li><strong>Feature builder</strong> — по <code>PurchaseEvent</code> строит RFM-профиль по категориям (recency/frequency/monetary), архетип, текущий уровень аватара.</li>
+        <li><strong>Candidate generation</strong> — фильтрует <code>ChallengeTemplate</code> по eligibility_rules (бюджет, доступные категории, недавно показанные шаблоны).</li>
+        <li><strong>Ranking</strong> — лёгкая модель (логистическая регрессия или LightGBM на синтетических метках отклика из Simulation Engine) ранжирует кандидатов; топ-1 заполняется параметрами пользователя → текст челленджа собирается из шаблонной строки, не генерируется свободным текстом.</li>
+      </ol>
+      <p>Тот же функциональный результат («персональный челлендж по истории покупок»), что и LLM-агент, но детерминированно и без guardrail-валидации на каждый вызов.</p>
+
+      <h3>10.2 Таймер / рекомендатель механик</h3>
+      <p>С сокращённым набором механик (без рейтинга) это по сути решение «когда показать новый челлендж vs напомнить про реферал»: MVP — rule-based (нет активного челленджа → сгенерировать; давно не было реферального промпта и completion rate здоровый → напомнить), с anti-fatigue переключением шаблона после N циклов без реакции. Апгрейд до contextual bandit (LinUCB / Thompson sampling) — если останется время, не обязателен для MVP.</p>
+
+      <h3>10.3 Персонализированное ранжирование акций</h3>
+      <p>MVP — эвристика (совпадение категории с историей + recency + маржинальность акции). При наличии времени — LightGBM с таргетом «отклик в синтетической симуляции». Критерий успеха задан кейсом: hit rate ≥70% на 30–50 held-out профилях с ручной разметкой релевантности.</p>
+
+      <h3>10.4 Антифрод</h3>
+      <p>Взвешенный scorecard, фиксированный явный порог — интерпретируемые фичи: скорость чеков, аномальные паттерны реферальных инвайтов, совпадение device_id/payment hash между «разными» рефералами, отклонение от паттерна архетипа. Метрика — precision именно на фрод-классе, не accuracy. Если время позволит — градиентный бустинг поверх, с SHAP-объяснением по фиче, но порог решения остаётся фиксированным и объяснимым.</p>
+
+      <h3>10.5 Синтетическая популяция и симуляция</h3>
+      <p>Генератор 4–5 архетипов покупателя (эконом-охотник, лоялист, спящий, кросс-шоппер + опционально пятый), с вероятностными профилями чеков. Состав популяции сэмплируется <strong>пропорционально реальным долям сегментов по трём сетям</strong> из раздела 3.1, с весом на «пользователей МП» — так симуляция ближе к реальному ecosystem-миксу, а не произвольна. Когортная симуляция: вероятность отклика сэмплируется из распределения, привязанного к архетипу — не полноценная agent-based модель, осознанный компромисс ради скорости.</p>
+
+      <h3>10.6 Оценка и мониторинг</h3>
+      <p>Офлайн: held-out разметка экспертом для hit rate (≥70% на 30–50 профилях), precision на фрод-классе, прогон 30–50 историй для сверки уровня аватара. Пилотный контур: метрики раздела 11, разделённые на primary и guardrail.</p>
+    </section>
+
+    <section id="s11">
+      <h2><span class="secnum">11</span>План пилота (один слайд)</h2>
+      <p><strong>Гипотеза:</strong> персональный игровой слой на сегменте «родители с детьми до 3 лет» повышает частоту покупок и возврат без дополнительных push-скидок (H1–H3).</p>
+      <p><strong>Primary-метрики:</strong> D7-возврат без push, частота покупок, средний чек.</p>
+      <p><strong>Guardrail-метрики:</strong> retention, количество новых пользователей по рефералке, количество позиций в корзине, длина сессии.</p>
+      <p><strong>Формула ROI пилота:</strong> <code>Прирост маржи (от прироста частоты/чека) − Стоимость выданных наград (все механики, включая реферальные)</code>. Должна совпадать с допущениями по марже из раздела 12.</p>
+    </section>
+
+    <section id="s12">
+      <h2><span class="secnum">12</span>Экономика наград и бюджет</h2>
+      <ul>
+        <li>Бюджетный потолок — % от исторической маржи пользователя <strong>за неделю</strong>, а не только лимит на операцию — иначе бюджет «протекает» мелкими начислениями.</li>
+        <li>Критерий успеха по кейсу: стоимость награды ≤ ожидаемый прирост маржи.</li>
+      </ul>
+      <div class="callout open">
+        <div class="callout-head"><span class="badge open"><span class="dot"></span>открыто</span>Цифры маржи</div>
+        <p>Какие цифры маржи и среднего чека берём за основу расчёта — кейс их не даёт, нужно зафиксировать допущение и явно пометить его иллюстративным на защите.</p>
+      </div>
+    </section>
+
+    <section id="s13">
+      <h2><span class="secnum">13</span>Риски и открытые вопросы</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Вопрос</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Финальная ратификация сегмента командой</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>2</td><td>Цифры маржи/среднего чека для расчёта экономики наград</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>3</td><td>Кто и по какому чек-листу размечает «релевантность» челленджа</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>4</td><td>Значение N для anti-fatigue переключения</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>5</td><td>Уровень детализации демо-имитации для пунктов «вне скоупа»</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>6</td><td>Конкретный набор признаков и порог антифрод-scorecard</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+            <tr><td>7</td><td>Финальное название продукта (без слова «ИИ»/AI)</td><td><span class="badge open"><span class="dot"></span>открыто</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s14">
+      <h2><span class="secnum">14</span>Вне скоупа (жёстко по кейсу)</h2>
+      <p>Интеграция с боевыми CRM/кассами/push, промышленная нагрузка, реальные списания, использование персональных данных и внутренних витрин X5, полный антифрод-контур, модерация контента, магазин скинов, отдельное приложение, полный юридический/секьюрити-анализ.</p>
+    </section>
+
+    <section id="s15">
+      <h2><span class="secnum">15</span>Команда и роли</h2>
+      <div class="callout open">
+        <div class="callout-head"><span class="badge open"><span class="dot"></span>открыто</span>Не заполнено</div>
+        <p>В переданных материалах (context pack, доска) этот раздел пуст. Нужно дозаполнить командой: кто отвечает за продуктовую часть, кто за ML/антифрод, кто за фронт демо, кто за симуляцию, как используете AI в самом процессе подготовки (это тоже пункт кейса).</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    Источники: доска Miro команды, два context-pack.md, данные сегментации по сетям ТС5/ТСХ/ТСЧ. Документ живой — обновляйте по мере закрытия открытых вопросов раздела 13.
+  </footer>
+
+</div>

@@ -1,0 +1,18 @@
+{
+  "note": "FR-006: пропущенная неделя сбрасывает стрик; считается хвост подряд идущих недель",
+  "user": { "user_id": "u07", "archetype": "mixed" },
+  "events": [
+    { "receipt_id": "r1", "timestamp": "2026-03-02T10:00:00Z", "saved_amount": 100.0 },
+    { "receipt_id": "r2", "timestamp": "2026-03-09T10:00:00Z", "saved_amount": 100.0 },
+    { "receipt_id": "r3", "timestamp": "2026-03-23T10:00:00Z", "saved_amount": 100.0 },
+    { "receipt_id": "r4", "timestamp": "2026-03-30T10:00:00Z", "saved_amount": 100.0 }
+  ],
+  "expected": {
+    "total_saved_amount": 400.0,
+    "level": 0,
+    "visual_stage": 1,
+    "state": "progressing",
+    "streak_count": 2,
+    "last_active_week": "2026-W14"
+  }
+}

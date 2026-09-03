@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x5.local/gaming-layer/referral-screen.schema.json",
+  "title": "ReferralScreenView",
+  "description": "Экран 3: реферальная программа. Награда отложена до purchase_confirmed (FR-021).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["user_id", "invite_link", "referrals", "released_reward_total"],
+  "properties": {
+    "user_id": { "type": "string" },
+    "invite_link": { "type": "string", "description": "персональная ссылка-токен (не ПДн)" },
+    "released_reward_total": { "type": "number", "minimum": 0 },
+    "budget_remaining_this_week": { "type": "number", "minimum": 0 },
+    "referrals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["referral_id", "status", "invited_at"],
+        "properties": {
+          "referral_id": { "type": "string" },
+          "invitee_alias": { "type": ["string", "null"], "description": "псевдоним, НЕ ФИО" },
+          "status": {
+            "type": "string",
+            "enum": ["invited", "registered", "purchase_confirmed", "reward_released", "blocked", "expired"]
+          },
+          "invited_at": { "type": "string", "format": "date-time" },
+          "window_deadline": { "type": ["string", "null"], "format": "date-time" },
+          "reward_amount": { "type": "number", "minimum": 0, "description": "0 до reward_released" },
+          "block_reason": {
+            "type": ["string", "null"],
+            "enum": ["self_referral", "antifraud_block", "window_expired", null]
+          }
+        }
+      }
+    }
+  }
+}

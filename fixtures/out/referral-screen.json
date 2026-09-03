@@ -1,0 +1,26 @@
+{
+  "user_id": "demo-parent-01",
+  "invite_link": "https://x5.local/i/demo-parent-01",
+  "released_reward_total": 15.0,
+  "budget_remaining_this_week": 24.0,
+  "referrals": [
+    {
+      "referral_id": "ref-0001",
+      "invitee_alias": "d-anna",
+      "status": "reward_released",
+      "invited_at": "2026-03-10T09:00:00Z",
+      "window_deadline": "2026-04-10T10:00:00Z",
+      "reward_amount": 15.0,
+      "block_reason": null
+    },
+    {
+      "referral_id": "ref-0002",
+      "invitee_alias": "d-oleg",
+      "status": "registered",
+      "invited_at": "2026-03-20T09:00:00Z",
+      "window_deadline": "2026-04-20T10:00:00Z",
+      "reward_amount": 0.0,
+      "block_reason": null
+    }
+  ]
+}

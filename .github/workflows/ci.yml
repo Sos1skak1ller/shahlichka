@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main, "001-gaming-layer"]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.11"
+      - name: Sync workspace
+        run: uv sync --group dev
+      - name: Engine tests
+        run: uv run --project engine pytest engine/tests -q
+      - name: Simulation tests
+        run: uv run --project sim pytest sim/tests -q
+      - name: Ruff
+        run: uv run ruff check engine/src sim/src fixtures
+      - name: Demo ↔ sim parity (FR-031 / SC-006)
+        run: bash scripts/check-parity.sh
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npx tsc -b
+      - run: npx vitest run
+      - run: npx vite build

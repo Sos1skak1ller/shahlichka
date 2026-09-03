@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x5.local/gaming-layer/simulation-report.schema.json",
+  "title": "SimulationReport",
+  "description": "Выход когортной симуляции (US4). Две когорты из одного микса популяции (FR-032a); ROI = Δmargin(treatment − control) − Σ reward_cost (FR-033).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "population_size", "weeks", "seed", "engine_version", "chain_mix", "metrics", "economy", "antifraud"],
+  "properties": {
+    "run_id": { "type": "string" },
+    "population_size": { "type": "integer", "minimum": 1000, "maximum": 10000 },
+    "weeks": { "type": "integer", "minimum": 1 },
+    "seed": { "type": "integer" },
+    "engine_version": { "type": "string" },
+    "ranker_version": { "type": ["string", "null"] },
+    "chain_mix": {
+      "type": "object",
+      "description": "фактические доли в сгенерированной популяции",
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "kind", "treatment", "control", "delta"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["d7_return_no_push", "purchase_frequency", "avg_check",
+                     "retention", "referral_new_users", "basket_items", "session_length"]
+          },
+          "kind": { "type": "string", "enum": ["primary", "guardrail"] },
+          "treatment": { "type": "number" },
+          "control": { "type": "number" },
+          "delta": { "type": "number", "description": "treatment − control" },
+          "period": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "economy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_reward_cost", "margin_uplift", "roi", "invariant_holds"],
+      "properties": {
+        "total_reward_cost": { "type": "number", "minimum": 0 },
+        "margin_uplift": { "type": "number", "description": "Δmargin(treatment − control)" },
+        "roi": { "type": "number", "description": "margin_uplift − total_reward_cost" },
+        "invariant_holds": { "type": "boolean", "description": "SC-003: стоимость наград ≤ прирост маржи" },
+        "budget_rejections": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "antifraud": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fraud_class_precision", "fraud_class_recall", "labeled_set_size"],
+      "properties": {
+        "fraud_class_precision": { "type": "number", "minimum": 0, "maximum": 1 },
+        "fraud_class_recall": { "type": "number", "minimum": 0, "maximum": 1 },
+        "labeled_set_size": { "type": "integer", "minimum": 1 },
+        "review_auto_resolved": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "pilot_plan": {
+      "type": "object",
+      "description": "одностраничный план пилота",
+      "additionalProperties": false,
+      "properties": {
+        "hypothesis": { "type": ["string", "null"] },
+        "primary_metrics": { "type": "array", "items": { "type": "string" } },
+        "guardrail_metrics": { "type": "array", "items": { "type": "string" } },
+        "roi_formula": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

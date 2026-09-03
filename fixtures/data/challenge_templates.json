@@ -1,0 +1,45 @@
+{
+  "note": "Реестр шаблонов челленджей. Текст челленджа собирается подстановкой в condition_pattern (FR-010), без свободной генерации.",
+  "templates": [
+    {
+      "template_id": "cat_repeat_basic",
+      "mechanic_type": "category_repeat",
+      "condition_pattern": "Купите {n} раз категорию «{category}» до {deadline}",
+      "reward_formula": "n * 8",
+      "eligibility_rules": { "min_level": 0, "max_level": 4, "segments": ["parents_0_3", "mature", "youth"] },
+      "param_space": { "n": [2, 3, 4], "deadline_offset_days": 7 }
+    },
+    {
+      "template_id": "basket_growth_basic",
+      "mechanic_type": "basket_growth",
+      "condition_pattern": "Соберите чек из {n}+ позиций категории «{category}» до {deadline}",
+      "reward_formula": "n * 6",
+      "eligibility_rules": { "min_level": 1, "max_level": 4, "segments": ["parents_0_3", "mature"] },
+      "param_space": { "n": [3, 4, 5], "deadline_offset_days": 7 }
+    },
+    {
+      "template_id": "streak_keep_basic",
+      "mechanic_type": "streak_keep",
+      "condition_pattern": "Сделайте покупку в категории «{category}» на этой неделе — не прерывайте серию",
+      "reward_formula": "15",
+      "eligibility_rules": { "min_level": 0, "max_level": 4, "segments": ["parents_0_3", "mature", "youth", "senior"] },
+      "param_space": { "n": [1], "deadline_offset_days": 7 }
+    },
+    {
+      "template_id": "cross_chain_basic",
+      "mechanic_type": "cross_chain",
+      "condition_pattern": "Купите категорию «{category}» в другой сети экосистемы до {deadline}",
+      "reward_formula": "20",
+      "eligibility_rules": { "min_level": 2, "max_level": 4, "segments": ["parents_0_3", "mature"] },
+      "param_space": { "n": [1], "deadline_offset_days": 10 }
+    }
+  ],
+  "fallback_template_id": "streak_keep_basic",
+  "fallback_category_by_segment": {
+    "parents_0_3": "baby_food",
+    "mature": "groceries",
+    "youth": "snacks",
+    "senior": "groceries",
+    "bad_habits": "groceries"
+  }
+}

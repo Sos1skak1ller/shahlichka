@@ -1,0 +1,22 @@
+{
+  "user_id": "demo-parent-01",
+  "iso_week": "2026-W13",
+  "challenge": {
+    "challenge_id": "ch-demo-parent-01-0001",
+    "text": "Купите 3 раз категорию «baby_food» до 30 марта",
+    "mechanic_type": "category_repeat",
+    "generated_by": "ml_ranker",
+    "params": {
+      "category": "baby_food",
+      "n": 3,
+      "deadline": "2026-03-30T07:00:00Z"
+    },
+    "progress": 2,
+    "target": 3,
+    "status": "active",
+    "valid_to": "2026-03-30T07:00:00Z",
+    "reward_amount": 24.0,
+    "within_budget": true
+  },
+  "notes": []
+}

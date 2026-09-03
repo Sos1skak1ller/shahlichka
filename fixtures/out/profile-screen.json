@@ -1,0 +1,25 @@
+{
+  "user_id": "demo-parent-01",
+  "display_name": "Родитель · демо",
+  "avatar": {
+    "level": 2,
+    "visual_stage": 3,
+    "state": "progressing",
+    "unlocked_customizations": [
+      "starter_skin",
+      "bronze_badge",
+      "silver_badge"
+    ],
+    "last_transition_at": "2026-03-23T08:50:00Z"
+  },
+  "savings": {
+    "total_saved_amount": 1720.0,
+    "current_threshold": 1500.0,
+    "next_threshold": 3500.0,
+    "progress_ratio": 0.11
+  },
+  "streak": {
+    "streak_count": 4,
+    "last_active_week": "2026-W13"
+  }
+}

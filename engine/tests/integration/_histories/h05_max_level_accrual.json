@@ -1,0 +1,17 @@
+{
+  "note": "US1 сценарий 5: на максимальном уровне накопление продолжает расти, новых уровней нет",
+  "user": { "user_id": "u05", "archetype": "loyalist" },
+  "events": [
+    { "receipt_id": "r1", "timestamp": "2026-03-02T10:00:00Z", "saved_amount": 4000.0 },
+    { "receipt_id": "r2", "timestamp": "2026-03-09T10:00:00Z", "saved_amount": 3500.0 },
+    { "receipt_id": "r3", "timestamp": "2026-03-16T10:00:00Z", "saved_amount": 1000.0 }
+  ],
+  "expected": {
+    "total_saved_amount": 8500.0,
+    "level": 4,
+    "visual_stage": 5,
+    "state": "max_level",
+    "streak_count": 3,
+    "last_active_week": "2026-W12"
+  }
+}

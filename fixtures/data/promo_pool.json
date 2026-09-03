@@ -1,0 +1,11 @@
+{
+  "note": "Пул акций «от маркетинга» — фикстура. Вход для персонального ранжирования (US6).",
+  "promos": [
+    { "promo_id": "p_baby_food", "category": "baby_food", "discount_type": "percent", "discount_value": 15, "margin_impact": 0.8, "eligibility_rules": { "segments": ["parents_0_3"] } },
+    { "promo_id": "p_diapers", "category": "diapers", "discount_type": "percent", "discount_value": 10, "margin_impact": 0.6, "eligibility_rules": { "segments": ["parents_0_3"] } },
+    { "promo_id": "p_hygiene", "category": "hygiene", "discount_type": "fixed", "discount_value": 50, "margin_impact": 0.5, "eligibility_rules": {} },
+    { "promo_id": "p_dairy", "category": "dairy", "discount_type": "percent", "discount_value": 8, "margin_impact": 0.4, "eligibility_rules": {} },
+    { "promo_id": "p_snacks", "category": "snacks", "discount_type": "percent", "discount_value": 20, "margin_impact": 0.3, "eligibility_rules": {} },
+    { "promo_id": "p_household", "category": "household", "discount_type": "fixed", "discount_value": 40, "margin_impact": 0.55, "eligibility_rules": {} }
+  ]
+}
