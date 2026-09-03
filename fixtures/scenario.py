@@ -69,7 +69,7 @@ def build_scenario(*, gaming_layer_enabled: bool = True) -> DemoScenario:
         archetype="loyalist",
         segment="parents_0_3",
         chain_code="TS5",
-        display_name="Родитель · демо",
+        display_name="Анна",  # никнейм для демо, не ПДн (FR-029)
     )
     for ev in DEMO_EVENTS:
         if ev["timestamp"] >= CHALLENGE_AT and eng.challenges.active(DEMO_USER) is None:
