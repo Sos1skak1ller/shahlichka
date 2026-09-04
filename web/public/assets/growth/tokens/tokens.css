@@ -1,0 +1,60 @@
+:root {
+  /* Published X5 anchors; product usage still requires brand/legal approval. */
+  --x5-green-900: #05310a;
+  --x5-green-700: #0f5a05;
+  --x5-mint-100: #eafbdc;
+  --x5-warm-50: #fff6ea;
+
+  /* Project tokens for the hackathon concept «X5 Рост». */
+  --growth-canvas: #f5f7f2;
+  --growth-canvas-warm: #fffaf2;
+  --growth-surface: #ffffff;
+  --growth-surface-muted: #f0f3ed;
+  --growth-text: #122116;
+  --growth-text-muted: #5b6b5e;
+  --growth-text-inverse: #f7faf4;
+  --growth-border: #dbe4d8;
+  --growth-border-strong: #bdcbb9;
+
+  --growth-accent: #67a93d;
+  --growth-accent-hover: #538d31;
+  --growth-accent-soft: #e5f3dc;
+  --growth-reward: #d96920;
+  --growth-reward-hover: #b95313;
+  --growth-reward-soft: #ffe4c6;
+  --growth-info: #315ea8;
+  --growth-info-soft: #e6f0ff;
+  --growth-warning: #8a5514;
+  --growth-warning-soft: #fff0d2;
+  --growth-danger: #a9362b;
+  --growth-danger-soft: #fee7e4;
+
+  --growth-space-1: 4px;
+  --growth-space-2: 8px;
+  --growth-space-3: 12px;
+  --growth-space-4: 16px;
+  --growth-space-5: 20px;
+  --growth-space-6: 24px;
+  --growth-space-8: 32px;
+  --growth-space-10: 40px;
+  --growth-space-12: 48px;
+
+  --growth-radius-sm: 10px;
+  --growth-radius-md: 14px;
+  --growth-radius-lg: 20px;
+  --growth-radius-xl: 28px;
+  --growth-radius-pill: 999px;
+
+  --growth-shadow-card: 0 12px 30px -22px rgba(5, 49, 10, 0.32);
+  --growth-shadow-float: 0 24px 60px -28px rgba(5, 49, 10, 0.42);
+  --growth-focus: 0 0 0 3px rgba(103, 169, 61, 0.28);
+
+  --growth-font-ui: "X5 Sans UI", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --growth-font-display: "X5 Sans", "X5 Sans UI", system-ui, sans-serif;
+  --growth-text-xs: 12px;
+  --growth-text-sm: 14px;
+  --growth-text-md: 16px;
+  --growth-text-lg: 20px;
+  --growth-text-xl: 24px;
+  --growth-text-display: 32px;
+}

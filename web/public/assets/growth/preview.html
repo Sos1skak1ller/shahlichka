@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>X5 Рост — UI asset pack</title>
+    <link rel="stylesheet" href="./tokens/tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; color: var(--growth-text); background: var(--growth-canvas); font-family: var(--growth-font-ui); }
+      header { padding: 48px clamp(20px, 5vw, 72px); color: var(--growth-text-inverse); background: var(--x5-green-900); }
+      header p { max-width: 720px; margin: 8px 0 0; color: rgba(247,250,244,.72); line-height: 1.55; }
+      h1, h2 { margin: 0; font-family: var(--growth-font-display); }
+      h1 { font-size: clamp(30px, 5vw, 54px); }
+      h2 { margin-bottom: 18px; font-size: 24px; }
+      main { width: min(1440px, calc(100% - 40px)); margin: 0 auto; padding: 40px 0 72px; }
+      section { margin-top: 48px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+      .card { overflow: hidden; background: var(--growth-surface); border: 1px solid var(--growth-border); border-radius: var(--growth-radius-lg); box-shadow: var(--growth-shadow-card); }
+      .card img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background: var(--growth-canvas-warm); }
+      .card--wide img { aspect-ratio: 4 / 3; object-fit: contain; }
+      .caption { padding: 14px 16px; }
+      .caption strong { display: block; }
+      .caption code { display: block; margin-top: 5px; color: var(--growth-text-muted); font-size: 11px; overflow-wrap: anywhere; }
+      .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 10px; }
+      .icon { min-height: 100px; padding: 14px 8px; display: grid; place-items: center; gap: 9px; color: var(--x5-green-900); background: white; border: 1px solid var(--growth-border); border-radius: var(--growth-radius-md); text-align: center; }
+      .icon svg { width: 30px; height: 30px; }
+      .icon small { max-width: 100%; color: var(--growth-text-muted); font-size: 11px; overflow-wrap: anywhere; }
+      .icon--collection svg { width: 48px; height: 48px; }
+      .pattern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+      .pattern { min-height: 220px; padding: 18px; display: flex; align-items: flex-end; border: 1px solid var(--growth-border); border-radius: var(--growth-radius-lg); background-color: white; background-position: center; background-size: cover; }
+      .pattern span { padding: 6px 9px; color: white; background: var(--x5-green-900); border-radius: var(--growth-radius-pill); font-size: 11px; }
+      .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+      .swatch { overflow: hidden; background: white; border: 1px solid var(--growth-border); border-radius: var(--growth-radius-md); }
+      .swatch i { display: block; height: 78px; background: var(--color); }
+      .swatch span { display: block; padding: 10px 12px; font-size: 12px; }
+      footer { padding: 24px; color: var(--growth-text-muted); text-align: center; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>X5 Рост · UI asset pack</h1>
+      <p>Просмотр production-иллюстраций, SVG-спрайтов, фоновых паттернов и цветовых токенов. Это проектная хакатонная концепция, а не официальный брендбук X5.</p>
+    </header>
+    <main>
+      <section>
+        <h2>Клиентские иллюстрации</h2>
+        <div class="grid">
+          <article class="card"><img src="./hero/progress-leaf-v1.png" alt="Листик — прогресс" /><div class="caption"><strong>Прогресс</strong><code>hero/progress-leaf-v1.png</code></div></article>
+          <article class="card"><img src="./hero/level-up-orange-v1.png" alt="Апельсинка — новый уровень" /><div class="caption"><strong>Новый уровень</strong><code>hero/level-up-orange-v1.png</code></div></article>
+          <article class="card"><img src="./illustrations/client-challenge-v1.png" alt="Недельный челлендж" /><div class="caption"><strong>Челлендж</strong><code>illustrations/client-challenge-v1.png</code></div></article>
+          <article class="card"><img src="./illustrations/client-referral-v1.png" alt="Приглашение друга" /><div class="caption"><strong>Реферал</strong><code>illustrations/client-referral-v1.png</code></div></article>
+          <article class="card"><img src="./illustrations/client-empty-v1.png" alt="Спокойное пустое состояние" /><div class="caption"><strong>Empty-state</strong><code>illustrations/client-empty-v1.png</code></div></article>
+        </div>
+      </section>
+      <section>
+        <h2>Promo Studio</h2>
+        <div class="grid"><article class="card card--wide"><img src="./illustrations/studio-empty-v1.png" alt="Создание, аналитика и публикация промо" /><div class="caption"><strong>Создание → аналитика → публикация</strong><code>illustrations/studio-empty-v1.png</code></div></article></div>
+      </section>
+      <section><h2>Системные иконки</h2><div id="ui-icons" class="icon-grid"></div></section>
+      <section><h2>Категории</h2><div id="category-icons" class="icon-grid"></div></section>
+      <section><h2>Коллекция</h2><div id="collection-icons" class="icon-grid"></div></section>
+      <section>
+        <h2>Паттерны</h2>
+        <div class="pattern-grid">
+          <div class="pattern" style="background-image:url('./patterns/growth-contours.svg')"><span>growth-contours</span></div>
+          <div class="pattern" style="background-image:url('./patterns/dot-grid.svg')"><span>dot-grid</span></div>
+          <div class="pattern" style="background-image:url('./patterns/reward-sparkles.svg')"><span>reward-sparkles</span></div>
+          <div class="pattern" style="background-image:url('./patterns/studio-grid.svg')"><span>studio-grid</span></div>
+        </div>
+      </section>
+      <section><h2>Цветовые токены</h2><div id="swatches" class="swatches"></div></section>
+    </main>
+    <footer>Asset pack v1 · файлы лежат в web/public/assets/growth</footer>
+    <script>
+      const ui = ['progress','challenge','friends','plus','search','filter','edit','duplicate','trash','upload','download','arrow-left','close','check','clock','pause','play','publish','info','warning','chevron-down','calendar','gift','cart','receipt','target','sparkles','analytics','user','link','wallet','eye'];
+      const categories = ['groceries','household','hygiene','dairy','snacks','baby-food','diapers'];
+      const collection = ['starter','bronze','silver','gold','prestige'];
+      const colors = {
+        'x5-green-900':'#05310A','x5-green-700':'#0F5A05','x5-mint-100':'#EAFBDC','x5-warm-50':'#FFF6EA',
+        'growth-canvas':'#F5F7F2','growth-surface':'#FFFFFF','growth-text':'#122116','growth-muted':'#5B6B5E',
+        'growth-accent':'#67A93D','growth-reward':'#D96920','growth-info':'#315EA8','growth-warning':'#8A5514','growth-danger':'#A9362B'
+      };
+      function icons(target, ids, file, extra='') {
+        document.getElementById(target).innerHTML = ids.map(id => `<div class="icon ${extra}"><svg aria-hidden="true"><use href="${file}#${id}"></use></svg><small>${id}</small></div>`).join('');
+      }
+      icons('ui-icons', ui, './icons/ui-sprite.svg');
+      icons('category-icons', categories, './icons/category-sprite.svg');
+      icons('collection-icons', collection, './icons/collection-sprite.svg', 'icon--collection');
+      document.getElementById('swatches').innerHTML = Object.entries(colors).map(([name,color]) => `<div class="swatch"><i style="--color:${color}"></i><span>${name}<br><code>${color}</code></span></div>`).join('');
+    </script>
+  </body>
+</html>

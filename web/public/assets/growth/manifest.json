@@ -1,0 +1,74 @@
+{
+  "pack": "x5-growth-full-ui-assets",
+  "version": 1,
+  "brandStatus": "project-concept-not-official-x5-brandbook",
+  "client": {
+    "hero": [
+      {
+        "path": "/assets/growth/hero/progress-leaf-v1.png",
+        "role": "profile-progress",
+        "size": "1024x1536",
+        "safeZone": "top-28-percent",
+        "fit": "cover"
+      },
+      {
+        "path": "/assets/growth/hero/level-up-orange-v1.png",
+        "role": "level-up",
+        "size": "1024x1536",
+        "safeZone": "top-22-percent",
+        "fit": "cover"
+      }
+    ],
+    "illustrations": [
+      {
+        "path": "/assets/growth/illustrations/client-challenge-v1.png",
+        "role": "weekly-challenge",
+        "safeZone": "top-25-percent"
+      },
+      {
+        "path": "/assets/growth/illustrations/client-referral-v1.png",
+        "role": "referral",
+        "safeZone": "top-28-percent"
+      },
+      {
+        "path": "/assets/growth/illustrations/client-empty-v1.png",
+        "role": "no-active-challenge",
+        "safeZone": "top-35-percent"
+      }
+    ]
+  },
+  "studio": {
+    "illustrations": [
+      {
+        "path": "/assets/growth/illustrations/studio-empty-v1.png",
+        "role": "empty-editor-and-onboarding",
+        "fit": "contain"
+      }
+    ],
+    "patterns": [
+      "/assets/growth/patterns/studio-grid.svg",
+      "/assets/growth/patterns/dot-grid.svg"
+    ]
+  },
+  "shared": {
+    "icons": {
+      "ui": "/assets/growth/icons/ui-sprite.svg",
+      "categories": "/assets/growth/icons/category-sprite.svg",
+      "collection": "/assets/growth/icons/collection-sprite.svg"
+    },
+    "patterns": [
+      "/assets/growth/patterns/growth-contours.svg",
+      "/assets/growth/patterns/reward-sparkles.svg"
+    ],
+    "tokens": {
+      "css": "/assets/growth/tokens/tokens.css",
+      "json": "/assets/growth/tokens/tokens.json"
+    }
+  },
+  "references": [
+    "/assets/growth/source-renders/leaf-active-reference-v1.png",
+    "/assets/growth/source-renders/leaf-resting-reference-v1.png",
+    "/assets/growth/source-renders/orange-active-reference-v1.png",
+    "/assets/growth/source-renders/orange-celebrating-reference-v1.png"
+  ]
+}

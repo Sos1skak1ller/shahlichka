@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="starter" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#E5F3DC"/><path d="M24 35V22" fill="none" stroke="#0F5A05" stroke-width="3" stroke-linecap="round"/><path d="M24 24c0-7 5-11 13-11 0 8-5 12-13 11Z" fill="#67A93D" stroke="#0F5A05" stroke-width="2" stroke-linejoin="round"/><path d="M24 29c0-5-4-8-10-8 0 6 4 9 10 8Z" fill="#A7D982" stroke="#0F5A05" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="bronze" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#F6E6DA"/><path d="m17 6 7 16 7-16h7l-9 20H19L10 6h7Z" fill="#8C5337"/><circle cx="24" cy="30" r="11" fill="#B87345" stroke="#8C5337" stroke-width="2"/><path d="m24 23 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7L24 23Z" fill="#FFF6EA"/></symbol>
+    <symbol id="silver" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#EEF1F3"/><path d="m17 6 7 16 7-16h7l-9 20H19L10 6h7Z" fill="#7A878E"/><circle cx="24" cy="30" r="11" fill="#BFC9CE" stroke="#7A878E" stroke-width="2"/><path d="m24 23 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7L24 23Z" fill="#FFFFFF"/></symbol>
+    <symbol id="gold" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#FFF3CF"/><path d="m17 6 7 16 7-16h7l-9 20H19L10 6h7Z" fill="#B97910"/><circle cx="24" cy="30" r="11" fill="#E8B43D" stroke="#B97910" stroke-width="2"/><path d="m24 23 2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7L24 23Z" fill="#FFFBEA"/></symbol>
+    <symbol id="prestige" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#E5F3DC"/><path d="m9 17 8 7 7-14 7 14 8-7-3 19H12L9 17Z" fill="#0F5A05" stroke="#05310A" stroke-width="2" stroke-linejoin="round"/><circle cx="17" cy="26" r="2" fill="#F1A23C"/><circle cx="24" cy="18" r="2" fill="#F1A23C"/><circle cx="31" cy="26" r="2" fill="#F1A23C"/></symbol>
+  </defs>
+</svg>
