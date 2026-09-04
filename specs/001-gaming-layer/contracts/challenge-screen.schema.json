@@ -40,6 +40,40 @@
     "notes": {
       "type": "array",
       "items": { "type": "string", "enum": ["cold_start_fallback", "template_pool_exhausted", "anti_fatigue_switch"] }
+    },
+    "catalog": {
+      "type": "array",
+      "description": "Витрина форматов челленджей: что доступно сейчас и что откроется позже",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["template_id", "title", "mechanic_type", "category", "reward_amount", "available"],
+        "properties": {
+          "template_id": { "type": "string" },
+          "title": { "type": "string" },
+          "mechanic_type": { "type": "string", "enum": ["category_repeat", "basket_growth", "streak_keep", "cross_chain"] },
+          "category": { "type": "string" },
+          "reward_amount": { "type": "number", "minimum": 0 },
+          "available": { "type": "boolean" },
+          "lock_reason": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "history": {
+      "type": "array",
+      "description": "Ранее выданные челленджи пользователя (без активного)",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["challenge_id", "text", "status", "reward_amount", "iso_week"],
+        "properties": {
+          "challenge_id": { "type": "string" },
+          "text": { "type": "string" },
+          "status": { "type": "string", "enum": ["completed", "expired", "rejected_economy"] },
+          "reward_amount": { "type": "number", "minimum": 0 },
+          "iso_week": { "type": "string", "pattern": "^\\d{4}-W\\d{2}$" }
+        }
+      }
     }
   }
 }

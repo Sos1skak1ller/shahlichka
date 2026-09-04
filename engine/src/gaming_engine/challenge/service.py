@@ -25,6 +25,14 @@ PreCheckFn = Callable[[str, float, str, str], tuple[bool, str]]
 AccrueFn = Callable[[str, float, str, str, str], None]
 
 
+_MECHANIC_TITLE = {
+    "category_repeat": "Повтор категории",
+    "basket_growth": "Большая корзина",
+    "streak_keep": "Не прерывать серию",
+    "cross_chain": "Покупка в другой сети",
+}
+
+
 @dataclass
 class ChallengeRecord:
     challenge_id: str
@@ -42,6 +50,7 @@ class ChallengeRecord:
     status: str = "active"  # active | completed | expired | rejected_economy
     progress: int = 0
     within_budget: bool = True
+    completed_at: str | None = None
     notes: list[str] = field(default_factory=list)
 
 
@@ -175,11 +184,13 @@ class ChallengeService:
             return
         if _parse(event.timestamp) > _parse(rec.deadline_iso):
             rec.status = "expired"
+            rec.completed_at = event.timestamp
             return
         if rec.category in event.category_list:
             rec.progress += 1
             if rec.progress >= rec.target:
                 rec.status = "completed"
+                rec.completed_at = event.timestamp
                 accrue("challenge", rec.reward_amount, rec.iso_week, archetype, event.timestamp)
 
     def expire_stale(self, user_id: str, as_of_ts: str) -> None:
@@ -199,6 +210,62 @@ class ChallengeService:
             self._records(user_id)[-1] if self._records(user_id) else None
         )
         return list(rec.notes) if rec else []
+
+    def history(self, user_id: str) -> list[ChallengeRecord]:
+        """Ранее закрытые челленджи (без активного), свежие сверху."""
+        done = [
+            r
+            for r in self._records(user_id)
+            if r.status in ("completed", "expired", "rejected_economy")
+        ]
+        done.sort(key=lambda r: r.completed_at or r.valid_from, reverse=True)
+        return done
+
+    def catalog(
+        self,
+        *,
+        feats,
+        segment: str,
+        avatar_level: int,
+        remaining_budget: float,
+    ) -> list[dict]:
+        """Витрина форматов: что доступно сейчас и что откроется позже."""
+        reg = load_registry()
+        tops = feats.top_categories(3)
+        fallback_cat = reg.fallback_category_by_segment.get(segment, "groceries")
+        out: list[dict] = []
+        for i, t in enumerate(reg.templates):
+            cat = tops[i % len(tops)] if tops else fallback_cat
+            opts = sorted(t.n_options)
+            n = t.best_n_within(remaining_budget, opts[len(opts) // 2])
+            reward = round(t.reward_for(n), 2)
+
+            seg_ok = segment in t.segments
+            lvl_ok = t.min_level <= avatar_level <= t.max_level
+            budget_ok = t.min_reward() <= remaining_budget + 1e-9
+            available = seg_ok and lvl_ok and budget_ok
+
+            lock: str | None = None
+            if not lvl_ok and avatar_level < t.min_level:
+                lock = f"откроется с уровня {t.min_level}"
+            elif not seg_ok:
+                lock = "для другого сегмента"
+            elif not budget_ok:
+                lock = "не хватает недельного бюджета"
+
+            out.append(
+                {
+                    "template_id": t.template_id,
+                    "title": _MECHANIC_TITLE.get(t.mechanic_type, t.mechanic_type),
+                    "mechanic_type": t.mechanic_type,
+                    "category": cat,
+                    "reward_amount": reward,
+                    "available": available,
+                    "lock_reason": lock,
+                }
+            )
+        out.sort(key=lambda c: (not c["available"], c["template_id"]))
+        return out
 
 
 def registry_version() -> str:

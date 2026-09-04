@@ -8,6 +8,8 @@
  */
 import challengeScreenJson from "../../fixtures/out/challenge-screen.json";
 import profileScreenJson from "../../fixtures/out/profile-screen.json";
+import profileScreenLeftJson from "../../fixtures/out/profile-screen.left.json";
+import profileScreenRightJson from "../../fixtures/out/profile-screen.right.json";
 import referralScreenJson from "../../fixtures/out/referral-screen.json";
 import {
   ChallengeScreenViewSchema,
@@ -35,3 +37,9 @@ export const fixtureClient: GamingLayerClient = {
     return ReferralScreenViewSchema.parse(referralScreenJson);
   },
 };
+
+/** Витринные профили для боковых экранов демо-галереи (другой аватар). */
+export const leftProfileView: ProfileScreenView =
+  ProfileScreenViewSchema.parse(profileScreenLeftJson);
+export const rightProfileView: ProfileScreenView =
+  ProfileScreenViewSchema.parse(profileScreenRightJson);

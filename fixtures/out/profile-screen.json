@@ -1,6 +1,6 @@
 {
   "user_id": "demo-parent-01",
-  "display_name": "Анна",
+  "display_name": "Кирилл",
   "avatar": {
     "level": 2,
     "visual_stage": 3,
@@ -10,16 +10,123 @@
       "bronze_badge",
       "silver_badge"
     ],
-    "last_transition_at": "2026-03-23T08:50:00Z"
+    "last_transition_at": "2026-03-16T11:30:00Z"
   },
   "savings": {
-    "total_saved_amount": 1720.0,
+    "total_saved_amount": 2140.0,
     "current_threshold": 1500.0,
     "next_threshold": 3500.0,
-    "progress_ratio": 0.11
+    "progress_ratio": 0.32
   },
   "streak": {
     "streak_count": 4,
     "last_active_week": "2026-W13"
-  }
+  },
+  "history": [
+    {
+      "ts": "2026-03-26T19:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food",
+      "amount": 130.0
+    },
+    {
+      "ts": "2026-03-23T08:50:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food, hygiene",
+      "amount": 250.0
+    },
+    {
+      "ts": "2026-03-20T12:40:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "snacks",
+      "amount": 110.0
+    },
+    {
+      "ts": "2026-03-19T17:25:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food",
+      "amount": 130.0
+    },
+    {
+      "ts": "2026-03-16T11:30:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "diapers",
+      "amount": 300.0
+    },
+    {
+      "ts": "2026-03-16T11:30:00Z",
+      "kind": "level_up",
+      "title": "Новый уровень: 2",
+      "detail": "аватар подрос",
+      "amount": null
+    },
+    {
+      "ts": "2026-03-14T18:00:00Z",
+      "kind": "referral_reward",
+      "title": "Награда за друга",
+      "detail": "d-anna",
+      "amount": 15.0
+    },
+    {
+      "ts": "2026-03-13T19:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "diapers",
+      "amount": 170.0
+    },
+    {
+      "ts": "2026-03-12T20:10:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "dairy, baby_food",
+      "amount": 150.0
+    },
+    {
+      "ts": "2026-03-09T09:05:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food",
+      "amount": 320.0
+    },
+    {
+      "ts": "2026-03-06T13:20:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "dairy",
+      "amount": 140.0
+    },
+    {
+      "ts": "2026-03-06T13:20:00Z",
+      "kind": "level_up",
+      "title": "Новый уровень: 1",
+      "detail": "аватар подрос",
+      "amount": null
+    },
+    {
+      "ts": "2026-03-04T18:40:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "hygiene",
+      "amount": 180.0
+    },
+    {
+      "ts": "2026-03-02T10:15:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food, diapers",
+      "amount": 260.0
+    },
+    {
+      "ts": "2026-03-02T10:15:00Z",
+      "kind": "challenge_done",
+      "title": "Челлендж выполнен",
+      "detail": "Сделайте покупку в категории «baby_food» на этой неделе — не прерывайте серию",
+      "amount": 15.0
+    }
+  ]
 }

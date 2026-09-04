@@ -14,6 +14,16 @@ const CHIP_ICON: Record<string, string> = {
   prestige_frame: "👑",
 };
 
+const FEED_ICON: Record<string, string> = {
+  purchase: "🛒",
+  level_up: "⬆️",
+  challenge_done: "🎯",
+  referral_reward: "🎁",
+};
+
+const fmtDate = (ts: string) =>
+  new Date(ts).toLocaleDateString("ru-RU", { day: "numeric", month: "long" });
+
 const rub = (n: number) =>
   new Intl.NumberFormat("ru-RU", {
     style: "currency",
@@ -95,6 +105,27 @@ export function ProfileAvatar({ view }: Props) {
           ))}
         </ul>
       </div>
+
+      {(view.history ?? []).length > 0 && (
+        <div className="card">
+          <div className="card__k">История</div>
+          <ul className="feed">
+            {(view.history ?? []).map((h, i) => (
+              <li key={`${h.ts}-${i}`} className="feed__row">
+                <span className="feed__ico" aria-hidden>
+                  {FEED_ICON[h.kind] ?? "•"}
+                </span>
+                <div className="feed__body">
+                  <div className="feed__title">{h.title}</div>
+                  {h.detail && <div className="feed__detail">{h.detail}</div>}
+                  <div className="feed__date">{fmtDate(h.ts)}</div>
+                </div>
+                {h.amount != null && <span className="feed__amt">+{rub(h.amount)}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }

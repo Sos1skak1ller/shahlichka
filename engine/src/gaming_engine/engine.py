@@ -10,7 +10,10 @@ from gaming_engine import avatar, config, streak
 from gaming_engine.antifraud import AntifraudService
 from gaming_engine.challenge.service import ChallengeRecord, ChallengeService
 from gaming_engine.contracts import (
+    ActivityItem,
     AvatarView,
+    CatalogItem,
+    ChallengeHistoryItem,
     ChallengeParams,
     ChallengeScreenView,
     ChallengeView,
@@ -266,10 +269,14 @@ class Engine:
     def avatar_state(self, user_id: str) -> avatar.AvatarState:
         return self._avatars.get(user_id, avatar.AvatarState())
 
-    def streak_state(self, user_id: str) -> streak.StreakState:
-        return streak.compute(self.log.user_events(user_id))
+    def streak_state(
+        self, user_id: str, as_of_week: str | None = None
+    ) -> streak.StreakState:
+        return streak.compute(self.log.user_events(user_id), as_of_week)
 
-    def get_profile_view(self, user_id: str) -> ProfileScreenView:
+    def get_profile_view(
+        self, user_id: str, as_of_ts: str | None = None
+    ) -> ProfileScreenView:
         av = self.avatar_state(user_id)
         total = self.total_saved(user_id)
         cur_thr = avatar.threshold_for_level(av.level)
@@ -279,7 +286,9 @@ class Engine:
         else:
             span = nxt - cur_thr
             ratio = min(1.0, max(0.0, (total - cur_thr) / span)) if span > 0 else 0.0
-        stk = self.streak_state(user_id)
+        stk = self.streak_state(
+            user_id, iso_week(as_of_ts) if as_of_ts is not None else None
+        )
         meta = self.meta(user_id)
         return ProfileScreenView(
             user_id=user_id,
@@ -301,7 +310,62 @@ class Engine:
                 streak_count=stk.streak_count,
                 last_active_week=stk.last_active_week,
             ),
+            history=self._activity_feed(user_id),
         )
+
+    def _activity_feed(self, user_id: str, limit: int = 15) -> list[ActivityItem]:
+        items: list[ActivityItem] = []
+
+        for ev in self.log.user_events(user_id):
+            if ev.kind == "purchase" and ev.saved_amount > 0:
+                items.append(
+                    ActivityItem(
+                        ts=ev.timestamp,
+                        kind="purchase",
+                        title="Покупка",
+                        detail=", ".join(ev.category_list) or None,
+                        amount=round(ev.saved_amount, 2),
+                    )
+                )
+
+        for t in self.avatar_state(user_id).transition_history:
+            if t.to_level > t.from_level:
+                items.append(
+                    ActivityItem(
+                        ts=t.at,
+                        kind="level_up",
+                        title=f"Новый уровень: {t.to_level}",
+                        detail="аватар подрос",
+                    )
+                )
+
+        for rec in self.challenges.history(user_id):
+            if rec.status == "completed":
+                items.append(
+                    ActivityItem(
+                        ts=rec.completed_at or rec.valid_from,
+                        kind="challenge_done",
+                        title="Челлендж выполнен",
+                        detail=rec.text,
+                        amount=round(rec.reward_amount, 2),
+                    )
+                )
+
+        for r in self.referrals.for_inviter(user_id):
+            if r.status == "reward_released":
+                items.append(
+                    ActivityItem(
+                        ts=r.status_timestamps.get("reward_released", r.status_timestamps.get("invited", "")),
+                        kind="referral_reward",
+                        title="Награда за друга",
+                        detail=(r.invitee_user_id[-6:] if r.invitee_user_id else None),
+                        amount=round(r.reward_amount, 2),
+                    )
+                )
+
+        items = [i for i in items if i.ts]
+        items.sort(key=lambda i: i.ts, reverse=True)
+        return items[:limit]
 
     # ------------------------------------------------------------------ #
     # Челлендж (US2)
@@ -330,6 +394,39 @@ class Engine:
             precheck=precheck,
         )
 
+    def _challenge_catalog(self, user_id: str, as_of_ts: str) -> list[CatalogItem]:
+        from gaming_engine.challenge import features as _features
+
+        meta = self.meta(user_id)
+        wk = iso_week(as_of_ts)
+        feats = _features.build(
+            self.log.user_events(user_id),
+            archetype=meta.archetype,
+            avatar_level=self.avatar_state(user_id).level,
+            as_of_week=wk,
+        )
+        rows = self.challenges.catalog(
+            feats=feats,
+            segment=meta.segment,
+            avatar_level=self.avatar_state(user_id).level,
+            remaining_budget=self.ledger.remaining(user_id, wk, meta.archetype),
+        )
+        return [CatalogItem(**r) for r in rows]
+
+    def _challenge_history(self, user_id: str) -> list[ChallengeHistoryItem]:
+        out: list[ChallengeHistoryItem] = []
+        for rec in self.challenges.history(user_id):
+            out.append(
+                ChallengeHistoryItem(
+                    challenge_id=rec.challenge_id,
+                    text=rec.text,
+                    status=rec.status if rec.status in ("completed", "expired", "rejected_economy") else "expired",
+                    reward_amount=rec.reward_amount if rec.status == "completed" else 0.0,
+                    iso_week=rec.iso_week,
+                )
+            )
+        return out
+
     def get_challenge_view(
         self, user_id: str, as_of_ts: str | None = None
     ) -> ChallengeScreenView:
@@ -337,8 +434,13 @@ class Engine:
         wk = iso_week(at)
         rec = self.challenges.latest_visible(user_id)
         notes = self.challenges.week_notes(user_id)
+        catalog = self._challenge_catalog(user_id, at)
+        history = self._challenge_history(user_id)
         if rec is None:
-            return ChallengeScreenView(user_id=user_id, iso_week=wk, challenge=None, notes=notes)
+            return ChallengeScreenView(
+                user_id=user_id, iso_week=wk, challenge=None, notes=notes,
+                catalog=catalog, history=history,
+            )
         cv = ChallengeView(
             challenge_id=rec.challenge_id,
             text=rec.text,
@@ -355,5 +457,6 @@ class Engine:
             within_budget=rec.within_budget,
         )
         return ChallengeScreenView(
-            user_id=user_id, iso_week=rec.iso_week, challenge=cv, notes=notes
+            user_id=user_id, iso_week=rec.iso_week, challenge=cv, notes=notes,
+            catalog=catalog, history=history,
         )

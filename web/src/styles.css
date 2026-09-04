@@ -39,6 +39,12 @@ body {
   display: flex;
   justify-content: center;
 }
+.gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .device {
   width: 100%;
   max-width: 416px;
@@ -47,21 +53,44 @@ body {
   flex-direction: column;
   background: var(--paper);
   position: relative;
+  flex: none;
 }
 @media (min-width: 540px) {
   .page {
     align-items: center;
-    padding: 32px 16px;
+    padding: 28px 16px;
   }
   .device {
+    width: 390px;
     min-height: 0;
-    height: min(884px, calc(100dvh - 64px));
+    height: min(860px, calc(100dvh - 56px));
     border-radius: 40px;
     overflow: hidden;
     box-shadow:
-      0 50px 100px -30px rgba(28, 61, 40, 0.45),
+      0 44px 90px -30px rgba(28, 61, 40, 0.42),
       0 0 0 1px rgba(28, 61, 40, 0.08);
   }
+}
+
+/* галерея из трёх «телефонов» — боковые только на широком экране */
+@media (max-width: 1245px) {
+  .device--side {
+    display: none;
+  }
+}
+@media (min-width: 1246px) {
+  .gallery {
+    gap: 18px;
+  }
+  .device--side {
+    transform: scale(0.9);
+    opacity: 0.9;
+    pointer-events: none;
+    filter: saturate(0.96);
+  }
+}
+.tab:disabled {
+  cursor: default;
 }
 .device__scroll {
   flex: 1;
@@ -548,6 +577,137 @@ body {
 .pill[data-tone="bad"] {
   background: #f1e0d5;
   color: #9a5a3c;
+}
+
+/* --------------------------- лента ------------------------- */
+.feed {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.feed__row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+}
+.feed__row:first-child {
+  border-top: 0;
+}
+.feed__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  background: var(--green-100);
+}
+.feed__title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--forest);
+}
+.feed__detail {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 190px;
+}
+.feed__date {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.feed__amt {
+  font-weight: 850;
+  font-size: 13.5px;
+  color: var(--green-600);
+}
+
+/* --------------------- витрина форматов -------------------- */
+.cat {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cat__row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 11px 13px;
+}
+.cat__row[data-lock="true"] {
+  opacity: 0.55;
+}
+.cat__ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+  background: var(--acc-soft);
+}
+.cat__title {
+  font-weight: 800;
+  font-size: 13.5px;
+  color: var(--forest);
+}
+.cat__sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.cat__reward {
+  font-weight: 850;
+  font-size: 13px;
+  color: var(--forest);
+}
+
+/* ------------------ история челленджей -------------------- */
+.chist {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.chist__row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.chist__row:first-child {
+  border-top: 0;
+}
+.chist__txt {
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chist__amt {
+  font-weight: 800;
+  color: var(--green-600);
 }
 
 /* ------------------- плавающий таб-бар --------------------- */

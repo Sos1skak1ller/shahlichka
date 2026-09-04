@@ -1,0 +1,54 @@
+{
+  "user_id": "demo-leaf-01",
+  "display_name": "Марина",
+  "avatar": {
+    "level": 1,
+    "visual_stage": 2,
+    "state": "progressing",
+    "unlocked_customizations": [
+      "starter_skin",
+      "bronze_badge"
+    ],
+    "last_transition_at": "2026-03-05T18:00:00Z"
+  },
+  "savings": {
+    "total_saved_amount": 800.0,
+    "current_threshold": 500.0,
+    "next_threshold": 1500.0,
+    "progress_ratio": 0.3
+  },
+  "streak": {
+    "streak_count": 2,
+    "last_active_week": "2026-W11"
+  },
+  "history": [
+    {
+      "ts": "2026-03-10T10:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food",
+      "amount": 300.0
+    },
+    {
+      "ts": "2026-03-05T18:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "hygiene",
+      "amount": 220.0
+    },
+    {
+      "ts": "2026-03-05T18:00:00Z",
+      "kind": "level_up",
+      "title": "Новый уровень: 1",
+      "detail": "аватар подрос",
+      "amount": null
+    },
+    {
+      "ts": "2026-03-02T11:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food, dairy",
+      "amount": 280.0
+    }
+  ]
+}

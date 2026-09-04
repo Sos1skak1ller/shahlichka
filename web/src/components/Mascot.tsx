@@ -6,9 +6,9 @@ interface Props {
   dried?: boolean;
 }
 
-/** Имя маскота по стадии: 1 — Листик, дальше — Апельсинка (референс Перекрёстка). */
+/** Имя маскота по стадии: 1–2 — Листик, 3+ — Апельсинка (референс Перекрёстка). */
 export function mascotName(stage: number): string {
-  return stage <= 1 ? "Листик" : "Апельсинка";
+  return stage <= 2 ? "Листик" : "Апельсинка";
 }
 
 type Accessory = "none" | "scarf" | "medal" | "crown";
@@ -26,7 +26,7 @@ const SHOE = "#f5f1e6";
 
 export function Mascot({ stage, state, dried = false }: Props) {
   const s = Math.min(Math.max(stage, 1), 5);
-  const kind: "leaf" | "orange" = s <= 1 ? "leaf" : "orange";
+  const kind: "leaf" | "orange" = s <= 2 ? "leaf" : "orange";
   const acc = accessoryFor(s);
 
   const skin = dried ? "#c69a63" : kind === "leaf" ? "#a6d968" : "#f6a94b";

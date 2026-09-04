@@ -38,17 +38,20 @@ def _event(
     }
 
 
-# Демо-журнал: родитель с ребёнком до 3 лет, 4 недели покупок детских категорий.
-# Накопленная экономия ~1 720 ₽ → уровень 2, стрик 4 недели.
+# Демо-журнал: родитель с ребёнком до 3 лет, 4 недели покупок повседневных категорий.
+# Накопленная экономия ~2 140 ₽ → уровень 2, стрик 4 недели.
 DEMO_EVENTS: list[dict] = [
     _event("d1", "2026-03-02T10:15:00Z", 260.0, categories=["baby_food", "diapers"]),
     _event("d2", "2026-03-04T18:40:00Z", 180.0, categories=["hygiene"]),
-    _event("d3", "2026-03-09T09:05:00Z", 320.0, categories=["baby_food"]),
-    _event("d4", "2026-03-12T20:10:00Z", 150.0, categories=["dairy", "baby_food"]),
-    _event("d5", "2026-03-16T11:30:00Z", 300.0, categories=["diapers"]),
-    _event("d6", "2026-03-19T17:25:00Z", 130.0, categories=["baby_food"]),
-    _event("d7", "2026-03-23T08:50:00Z", 250.0, categories=["baby_food", "hygiene"]),
-    _event("d8", "2026-03-26T19:00:00Z", 130.0, categories=["baby_food"]),
+    _event("d3", "2026-03-06T13:20:00Z", 140.0, categories=["dairy"]),
+    _event("d4", "2026-03-09T09:05:00Z", 320.0, categories=["baby_food"]),
+    _event("d5", "2026-03-12T20:10:00Z", 150.0, categories=["dairy", "baby_food"]),
+    _event("d6", "2026-03-13T19:00:00Z", 170.0, categories=["diapers"]),
+    _event("d7", "2026-03-16T11:30:00Z", 300.0, categories=["diapers"]),
+    _event("d8", "2026-03-19T17:25:00Z", 130.0, categories=["baby_food"]),
+    _event("d9", "2026-03-20T12:40:00Z", 110.0, categories=["snacks"]),
+    _event("d10", "2026-03-23T08:50:00Z", 250.0, categories=["baby_food", "hygiene"]),
+    _event("d11", "2026-03-26T19:00:00Z", 130.0, categories=["baby_food"]),
 ]
 
 
@@ -58,8 +61,8 @@ class DemoScenario:
     user_id: str
 
 
-# Момент выдачи персонального челленджа — начало недели W13.
-CHALLENGE_AT = "2026-03-23T07:00:00Z"
+# Моменты выдачи челленджей: старт W10 (быстрый, выполняется) и старт W13 (текущий).
+GEN_MOMENTS = ["2026-03-02T08:00:00Z", "2026-03-23T07:00:00Z"]
 
 
 def build_scenario(*, gaming_layer_enabled: bool = True) -> DemoScenario:
@@ -69,15 +72,20 @@ def build_scenario(*, gaming_layer_enabled: bool = True) -> DemoScenario:
         archetype="loyalist",
         segment="parents_0_3",
         chain_code="TS5",
-        display_name="Анна",  # никнейм для демо, не ПДн (FR-029)
+        display_name="Кирилл",  # никнейм для демо, не ПДн (FR-029)
     )
+    gm = 0
     for ev in DEMO_EVENTS:
-        if ev["timestamp"] >= CHALLENGE_AT and eng.challenges.active(DEMO_USER) is None:
-            eng.generate_challenge(DEMO_USER, CHALLENGE_AT)
+        while gm < len(GEN_MOMENTS) and ev["timestamp"] >= GEN_MOMENTS[gm]:
+            if eng.challenges.active(DEMO_USER) is None:
+                eng.generate_challenge(DEMO_USER, GEN_MOMENTS[gm])
+            gm += 1
         res = eng.ingest(ev)
         assert res.accepted, res.reason
-    if eng.challenges.active(DEMO_USER) is None:
-        eng.generate_challenge(DEMO_USER, CHALLENGE_AT)
+    while gm < len(GEN_MOMENTS):
+        if eng.challenges.active(DEMO_USER) is None:
+            eng.generate_challenge(DEMO_USER, GEN_MOMENTS[gm])
+        gm += 1
 
     _demo_referrals(eng)
     return DemoScenario(engine=eng, user_id=DEMO_USER)
@@ -115,3 +123,57 @@ def key_numbers(scn: DemoScenario) -> dict:
         "avatar_level": pv.avatar.level,
         "streak_count": pv.streak.streak_count,
     }
+
+
+# --------------------------------------------------------------------------- #
+# Витринные боковые экраны демо-галереи: другой аватар, тот же движок.
+# --------------------------------------------------------------------------- #
+LEAF_USER = "demo-leaf-01"
+WILTED_USER = "demo-wilted-01"
+
+
+def _u(user: str, rid: str, ts: str, saved: float, cats: list[str]) -> dict:
+    return {
+        "receipt_id": rid, "user_id": user, "store_code": "s-pyat-050",
+        "chain_code": "TS5", "district_code": "d-msk-070", "timestamp": ts,
+        "sku_list": [f"sku-{rid}"], "category_list": cats,
+        "total_sum": saved * 9, "saved_amount": saved,
+        "device_id_hash": f"dev-{user}", "payment_instrument_hash": f"pay-{user}",
+        "corrects_receipt_id": None,
+    }
+
+
+def build_leaf_scenario() -> DemoScenario:
+    """Марина — недавно в программе: уровень 1, живой Листик, серия 2 недели."""
+    eng = Engine()
+    eng.register_user(
+        LEAF_USER, archetype="loyalist", segment="parents_0_3",
+        chain_code="TS5", display_name="Марина",
+    )
+    for ev in [
+        _u(LEAF_USER, "l1", "2026-03-02T11:00:00Z", 280.0, ["baby_food", "dairy"]),
+        _u(LEAF_USER, "l2", "2026-03-05T18:00:00Z", 220.0, ["hygiene"]),
+        _u(LEAF_USER, "l3", "2026-03-10T10:00:00Z", 300.0, ["baby_food"]),
+    ]:
+        eng.ingest(ev)
+    return DemoScenario(engine=eng, user_id=LEAF_USER)
+
+
+def build_wilted_scenario() -> DemoScenario:
+    """Игорь — забросил покупки: серия прервана, Листик подсох."""
+    eng = Engine()
+    eng.register_user(
+        WILTED_USER, archetype="sleeper", segment="parents_0_3",
+        chain_code="TS5", display_name="Игорь",
+    )
+    for ev in [
+        _u(WILTED_USER, "w1", "2026-03-02T12:00:00Z", 200.0, ["baby_food"]),
+        _u(WILTED_USER, "w2", "2026-03-04T19:00:00Z", 160.0, ["diapers"]),
+        _u(WILTED_USER, "w3", "2026-03-09T13:00:00Z", 140.0, ["dairy"]),
+    ]:
+        eng.ingest(ev)
+    return DemoScenario(engine=eng, user_id=WILTED_USER)
+
+
+# «Сейчас» для Игоря — на месяц позже последней покупки: серия давно прервана.
+WILTED_AS_OF = "2026-04-13T00:00:00Z"

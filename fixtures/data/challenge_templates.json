@@ -4,7 +4,7 @@
     {
       "template_id": "cat_repeat_basic",
       "mechanic_type": "category_repeat",
-      "condition_pattern": "Купите {n} раз категорию «{category}» до {deadline}",
+      "condition_pattern": "Сделайте {n} покупки категории «{category}» до {deadline}",
       "reward_formula": "n * 8",
       "eligibility_rules": { "min_level": 0, "max_level": 4, "segments": ["parents_0_3", "mature", "youth"] },
       "param_space": { "n": [2, 3, 4], "deadline_offset_days": 7 }

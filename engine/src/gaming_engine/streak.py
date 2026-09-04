@@ -14,7 +14,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 
 from gaming_engine.contracts import PurchaseEvent
-from gaming_engine.weekcal import is_next_week, iso_week
+from gaming_engine.weekcal import is_next_week, iso_week, weeks_between
 
 
 @dataclass
@@ -30,7 +30,9 @@ def _event_week(ev: PurchaseEvent, by_id: dict[str, PurchaseEvent]) -> str:
     return iso_week(ev.timestamp)
 
 
-def compute(user_events: list[PurchaseEvent]) -> StreakState:
+def compute(
+    user_events: list[PurchaseEvent], as_of_week: str | None = None
+) -> StreakState:
     if not user_events:
         return StreakState()
 
@@ -43,10 +45,17 @@ def compute(user_events: list[PurchaseEvent]) -> StreakState:
     if not active_weeks:
         return StreakState()
 
+    last = active_weeks[-1]
+
+    # FR-006: если между последней активной неделей и «сейчас» есть пропущенная
+    # календарная неделя — серия прервана (стрик 0), но неделю активности помним.
+    if as_of_week is not None and weeks_between(last, as_of_week) >= 2:
+        return StreakState(streak_count=0, last_active_week=last)
+
     count = 1
     for i in range(len(active_weeks) - 1, 0, -1):
         if is_next_week(active_weeks[i - 1], active_weeks[i]):
             count += 1
         else:
             break
-    return StreakState(streak_count=count, last_active_week=active_weeks[-1])
+    return StreakState(streak_count=count, last_active_week=last)

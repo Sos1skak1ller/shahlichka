@@ -1,0 +1,54 @@
+{
+  "user_id": "demo-wilted-01",
+  "display_name": "Игорь",
+  "avatar": {
+    "level": 1,
+    "visual_stage": 2,
+    "state": "progressing",
+    "unlocked_customizations": [
+      "starter_skin",
+      "bronze_badge"
+    ],
+    "last_transition_at": "2026-03-09T13:00:00Z"
+  },
+  "savings": {
+    "total_saved_amount": 500.0,
+    "current_threshold": 500.0,
+    "next_threshold": 1500.0,
+    "progress_ratio": 0.0
+  },
+  "streak": {
+    "streak_count": 0,
+    "last_active_week": "2026-W11"
+  },
+  "history": [
+    {
+      "ts": "2026-03-09T13:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "dairy",
+      "amount": 140.0
+    },
+    {
+      "ts": "2026-03-09T13:00:00Z",
+      "kind": "level_up",
+      "title": "Новый уровень: 1",
+      "detail": "аватар подрос",
+      "amount": null
+    },
+    {
+      "ts": "2026-03-04T19:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "diapers",
+      "amount": 160.0
+    },
+    {
+      "ts": "2026-03-02T12:00:00Z",
+      "kind": "purchase",
+      "title": "Покупка",
+      "detail": "baby_food",
+      "amount": 200.0
+    }
+  ]
+}

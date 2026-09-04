@@ -44,6 +44,25 @@
           "description": "null ⇒ подтверждённых покупок ещё не было"
         }
       }
+    },
+    "history": {
+      "type": "array",
+      "description": "Лента активности пользователя (новое сверху)",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ts", "kind", "title"],
+        "properties": {
+          "ts": { "type": "string", "format": "date-time" },
+          "kind": {
+            "type": "string",
+            "enum": ["purchase", "level_up", "challenge_done", "referral_reward"]
+          },
+          "title": { "type": "string" },
+          "detail": { "type": ["string", "null"] },
+          "amount": { "type": ["number", "null"], "description": "₽, если применимо" }
+        }
+      }
     }
   }
 }

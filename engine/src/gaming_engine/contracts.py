@@ -63,12 +63,21 @@ class StreakView(_Strict):
     last_active_week: str | None = Field(default=None, pattern=r"^\d{4}-W\d{2}$")
 
 
+class ActivityItem(_Strict):
+    ts: str
+    kind: Literal["purchase", "level_up", "challenge_done", "referral_reward"]
+    title: str
+    detail: str | None = None
+    amount: float | None = None
+
+
 class ProfileScreenView(_Strict):
     user_id: str
     display_name: str | None = None
     avatar: AvatarView
     savings: SavingsView
     streak: StreakView
+    history: list[ActivityItem] = Field(default_factory=list)
 
 
 # --------------------------------------------------------------------------- #
@@ -98,6 +107,24 @@ class ChallengeView(_Strict):
     within_budget: bool | None = None
 
 
+class CatalogItem(_Strict):
+    template_id: str
+    title: str
+    mechanic_type: MechanicType
+    category: str
+    reward_amount: float = Field(ge=0)
+    available: bool
+    lock_reason: str | None = None
+
+
+class ChallengeHistoryItem(_Strict):
+    challenge_id: str
+    text: str
+    status: Literal["completed", "expired", "rejected_economy"]
+    reward_amount: float = Field(ge=0)
+    iso_week: str = Field(pattern=r"^\d{4}-W\d{2}$")
+
+
 class ChallengeScreenView(_Strict):
     user_id: str
     iso_week: str = Field(pattern=r"^\d{4}-W\d{2}$")
@@ -105,6 +132,8 @@ class ChallengeScreenView(_Strict):
     notes: list[
         Literal["cold_start_fallback", "template_pool_exhausted", "anti_fatigue_switch"]
     ] = Field(default_factory=list)
+    catalog: list[CatalogItem] = Field(default_factory=list)
+    history: list[ChallengeHistoryItem] = Field(default_factory=list)
 
 
 # --------------------------------------------------------------------------- #

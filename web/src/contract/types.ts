@@ -38,6 +38,16 @@ export const StreakViewSchema = z
   })
   .strict();
 
+export const ActivityItemSchema = z
+  .object({
+    ts: z.string(),
+    kind: z.enum(["purchase", "level_up", "challenge_done", "referral_reward"]),
+    title: z.string(),
+    detail: z.string().nullable().optional(),
+    amount: z.number().nullable().optional(),
+  })
+  .strict();
+
 export const ProfileScreenViewSchema = z
   .object({
     user_id: z.string(),
@@ -45,8 +55,11 @@ export const ProfileScreenViewSchema = z
     avatar: AvatarViewSchema,
     savings: SavingsViewSchema,
     streak: StreakViewSchema,
+    history: z.array(ActivityItemSchema).optional(),
   })
   .strict();
+
+export type ActivityItem = z.infer<typeof ActivityItemSchema>;
 
 export type ProfileScreenView = z.infer<typeof ProfileScreenViewSchema>;
 
@@ -78,6 +91,33 @@ export const ChallengeViewSchema = z
   })
   .strict();
 
+export const CatalogItemSchema = z
+  .object({
+    template_id: z.string(),
+    title: z.string(),
+    mechanic_type: z.enum([
+      "category_repeat",
+      "basket_growth",
+      "streak_keep",
+      "cross_chain",
+    ]),
+    category: z.string(),
+    reward_amount: z.number().min(0),
+    available: z.boolean(),
+    lock_reason: z.string().nullable().optional(),
+  })
+  .strict();
+
+export const ChallengeHistoryItemSchema = z
+  .object({
+    challenge_id: z.string(),
+    text: z.string(),
+    status: z.enum(["completed", "expired", "rejected_economy"]),
+    reward_amount: z.number().min(0),
+    iso_week: isoWeek,
+  })
+  .strict();
+
 export const ChallengeScreenViewSchema = z
   .object({
     user_id: z.string(),
@@ -93,8 +133,13 @@ export const ChallengeScreenViewSchema = z
       )
       .optional()
       .default([]),
+    catalog: z.array(CatalogItemSchema).optional(),
+    history: z.array(ChallengeHistoryItemSchema).optional(),
   })
   .strict();
+
+export type CatalogItem = z.infer<typeof CatalogItemSchema>;
+export type ChallengeHistoryItem = z.infer<typeof ChallengeHistoryItemSchema>;
 
 export type ChallengeScreenView = z.infer<typeof ChallengeScreenViewSchema>;
 

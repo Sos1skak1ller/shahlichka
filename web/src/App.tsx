@@ -1,5 +1,14 @@
 import { useState, type ReactElement } from "react";
-import { fixtureClient } from "./client";
+import {
+  fixtureClient,
+  leftProfileView,
+  rightProfileView,
+} from "./client";
+import type {
+  ChallengeScreenView,
+  ProfileScreenView,
+  ReferralScreenView,
+} from "./contract/types";
 import { Challenge } from "./screens/Challenge";
 import { ProfileAvatar } from "./screens/ProfileAvatar";
 import { Referral } from "./screens/Referral";
@@ -35,52 +44,82 @@ const TABS: { id: Tab; label: string; icon: () => ReactElement }[] = [
   { id: "referral", label: "Друзья", icon: IconGift },
 ];
 
-export function App() {
+interface PhoneProps {
+  profile: ProfileScreenView;
+  challenge?: ChallengeScreenView;
+  referral?: ReferralScreenView;
+  interactive?: boolean;
+  variant: "main" | "side";
+}
+
+function Phone({ profile, challenge, referral, interactive = false, variant }: PhoneProps) {
   const [tab, setTab] = useState<Tab>("profile");
+  const activeTab: Tab = interactive ? tab : "profile";
+  const hi = (profile.display_name ?? "друг").split(/[\s·]+/)[0];
+
+  return (
+    <div className={`device device--${variant}`}>
+      <div className="device__scroll">
+        <header className="topbar">
+          <div>
+            <div className="topbar__eyebrow">Х5 Клуб · Рост</div>
+            <div className="topbar__hi">Привет, {hi}</div>
+          </div>
+          <div className="topbar__ava" aria-hidden>
+            {hi.slice(0, 1).toUpperCase()}
+          </div>
+        </header>
+
+        <main>
+          {activeTab === "profile" && <ProfileAvatar view={profile} />}
+          {interactive && activeTab === "challenge" && challenge && (
+            <Challenge view={challenge} />
+          )}
+          {interactive && activeTab === "referral" && referral && (
+            <Referral view={referral} />
+          )}
+        </main>
+      </div>
+
+      <nav className="tabbar" aria-label="Разделы">
+        {TABS.map((t) => {
+          const Icon = t.icon;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              className="tab"
+              disabled={!interactive}
+              aria-current={activeTab === t.id ? "page" : undefined}
+              onClick={interactive ? () => setTab(t.id) : undefined}
+            >
+              <Icon />
+              <span>{t.label}</span>
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}
+
+export function App() {
   const profile = fixtureClient.getProfileView();
   const challenge = fixtureClient.getChallengeView();
   const referral = fixtureClient.getReferralView();
 
-  const hi = (profile.display_name ?? "друг").split(/[\s·]+/)[0];
-
   return (
     <div className="page">
-      <div className="device">
-        <div className="device__scroll">
-          <header className="topbar">
-            <div>
-              <div className="topbar__eyebrow">Х5 Клуб · Рост</div>
-              <div className="topbar__hi">Привет, {hi}</div>
-            </div>
-            <div className="topbar__ava" aria-hidden>
-              {hi.slice(0, 1).toUpperCase()}
-            </div>
-          </header>
-
-          <main>
-            {tab === "profile" && <ProfileAvatar view={profile} />}
-            {tab === "challenge" && <Challenge view={challenge} />}
-            {tab === "referral" && <Referral view={referral} />}
-          </main>
-        </div>
-
-        <nav className="tabbar" aria-label="Разделы">
-          {TABS.map((t) => {
-            const Icon = t.icon;
-            return (
-              <button
-                key={t.id}
-                type="button"
-                className="tab"
-                aria-current={tab === t.id ? "page" : undefined}
-                onClick={() => setTab(t.id)}
-              >
-                <Icon />
-                <span>{t.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+      <div className="gallery">
+        <Phone profile={leftProfileView} variant="side" />
+        <Phone
+          profile={profile}
+          challenge={challenge}
+          referral={referral}
+          interactive
+          variant="main"
+        />
+        <Phone profile={rightProfileView} variant="side" />
       </div>
     </div>
   );

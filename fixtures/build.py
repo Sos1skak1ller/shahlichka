@@ -9,7 +9,12 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-from fixtures.scenario import build_scenario
+from fixtures.scenario import (
+    WILTED_AS_OF,
+    build_leaf_scenario,
+    build_scenario,
+    build_wilted_scenario,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "fixtures" / "out"
@@ -49,6 +54,25 @@ def build() -> list[str]:
         json.dumps(referral, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     written.append("referral-screen.json")
+
+    # --- Боковые витринные экраны демо-галереи (другой аватар) ---------- #
+    leaf = build_leaf_scenario()
+    left = leaf.engine.get_profile_view(leaf.user_id).model_dump(mode="json")
+    _validate(left, "profile-screen.schema.json")
+    (OUT / "profile-screen.left.json").write_text(
+        json.dumps(left, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    written.append("profile-screen.left.json")
+
+    wilted = build_wilted_scenario()
+    right = wilted.engine.get_profile_view(
+        wilted.user_id, as_of_ts=WILTED_AS_OF
+    ).model_dump(mode="json")
+    _validate(right, "profile-screen.schema.json")
+    (OUT / "profile-screen.right.json").write_text(
+        json.dumps(right, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    written.append("profile-screen.right.json")
 
     return written
 

@@ -2,8 +2,8 @@
   "user_id": "demo-parent-01",
   "iso_week": "2026-W13",
   "challenge": {
-    "challenge_id": "ch-demo-parent-01-0001",
-    "text": "Купите 3 раз категорию «baby_food» до 30 марта",
+    "challenge_id": "ch-demo-parent-01-0002",
+    "text": "Сделайте 3 покупки категории «baby_food» до 30 марта",
     "mechanic_type": "category_repeat",
     "generated_by": "ml_ranker",
     "params": {
@@ -18,5 +18,52 @@
     "reward_amount": 24.0,
     "within_budget": true
   },
-  "notes": []
+  "notes": [],
+  "catalog": [
+    {
+      "template_id": "basket_growth_basic",
+      "title": "Большая корзина",
+      "mechanic_type": "basket_growth",
+      "category": "diapers",
+      "reward_amount": 24.0,
+      "available": true,
+      "lock_reason": null
+    },
+    {
+      "template_id": "cat_repeat_basic",
+      "title": "Повтор категории",
+      "mechanic_type": "category_repeat",
+      "category": "baby_food",
+      "reward_amount": 24.0,
+      "available": true,
+      "lock_reason": null
+    },
+    {
+      "template_id": "cross_chain_basic",
+      "title": "Покупка в другой сети",
+      "mechanic_type": "cross_chain",
+      "category": "baby_food",
+      "reward_amount": 20.0,
+      "available": true,
+      "lock_reason": null
+    },
+    {
+      "template_id": "streak_keep_basic",
+      "title": "Не прерывать серию",
+      "mechanic_type": "streak_keep",
+      "category": "hygiene",
+      "reward_amount": 15.0,
+      "available": true,
+      "lock_reason": null
+    }
+  ],
+  "history": [
+    {
+      "challenge_id": "ch-demo-parent-01-0001",
+      "text": "Сделайте покупку в категории «baby_food» на этой неделе — не прерывайте серию",
+      "status": "completed",
+      "reward_amount": 15.0,
+      "iso_week": "2026-W10"
+    }
+  ]
 }
