@@ -1,0 +1,52 @@
+{
+  "concept": "От ростка к плоду",
+  "version": 2,
+  "rule": "Подтверждённые покупки увеличивают накопленный прогресс. Пороговые значения определяются продуктом, а не изображениями.",
+  "generator": "built-in image_gen",
+  "format": "PNG",
+  "width": 1024,
+  "height": 1536,
+  "background": "Opaque. Cream for stages 1–4; original pale green celebration backdrop for stage 5.",
+  "stages": [
+    {
+      "level": 1,
+      "title": "Почка",
+      "file": "stage-01-bud.png",
+      "pose": "Собранная спокойная поза, обе руки в кармане, ноги рядом.",
+      "source": "generated",
+      "sourcePath": "/Users/avtorygin/.codex/generated_images/01a06e72-ed34-7f12-94b4-7bd65cce6315/exec-222c915f-4b72-4d98-b6bd-1c6d9be510f5.png"
+    },
+    {
+      "level": 2,
+      "title": "Листик",
+      "file": "stage-02-leaf.png",
+      "pose": "Одна рука в кармане, вторая приветственно поднята.",
+      "source": "original-landing",
+      "sourcePath": "/Users/avtorygin/Documents/ChatGPT/aith-x5/shahlichka/web/public/assets/growth/hero/progress-leaf-clay-v2.png"
+    },
+    {
+      "level": 3,
+      "title": "Завязь",
+      "file": "stage-03-fruit-set.png",
+      "pose": "Шаг вперёд, открытая ладонь, свободная вторая рука.",
+      "source": "generated-refined",
+      "sourcePath": "/Users/avtorygin/.codex/generated_images/01a06e72-ed34-7f12-94b4-7bd65cce6315/exec-e7d4c115-0e5a-4c3f-8047-5b5b91971636.png"
+    },
+    {
+      "level": 4,
+      "title": "Созревающий плод",
+      "file": "stage-04-ripening.png",
+      "pose": "Устойчивая стойка, поднятый победный кулачок, вторая рука у кармана.",
+      "source": "generated",
+      "sourcePath": "/Users/avtorygin/.codex/generated_images/01a06e72-ed34-7f12-94b4-7bd65cce6315/exec-4a61e626-c5f8-478c-b58f-39ff126fbdab.png"
+    },
+    {
+      "level": 5,
+      "title": "Апельсинка",
+      "file": "stage-05-orange.png",
+      "pose": "Обе руки вверх, одна нога поднята: празднование награды.",
+      "source": "original-landing",
+      "sourcePath": "/Users/avtorygin/Documents/ChatGPT/aith-x5/shahlichka/web/public/assets/growth/hero/level-up-orange-clay-v2.png"
+    }
+  ]
+}

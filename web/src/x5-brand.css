@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "X5 Brand";
+  src: url("/assets/growth/brand/x5-sans-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+/* Shared identity, scoped away from Promo Studio and legacy asset previews. */
+.landing-page, .page {
+  --brand-font: "X5 Brand", Arial, sans-serif;
+  --brand-ink: #05310a;
+  --brand-muted: #52604f;
+  --brand-canvas: #fff;
+  --brand-surface: #f3f5f2;
+  --brand-mint: #e5f3dc;
+  --brand-lime: #b5e47a;
+}

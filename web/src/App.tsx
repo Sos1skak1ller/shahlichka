@@ -1,18 +1,20 @@
-import { useEffect, useState, type ReactElement } from "react";
-import {
-  fixtureClient,
-  leftProfileView,
-  rightProfileView,
-} from "./client";
+import { useEffect, useRef, useState } from "react";
+import { fixtureClient } from "./client";
+import { DEMO_PROFILE_PRESETS } from "./demoProfiles";
 import type {
   ChallengeScreenView,
   ProfileScreenView,
   ReferralScreenView,
 } from "./contract/types";
 import { Challenge } from "./screens/Challenge";
+import { CategoryMap } from "./screens/CategoryMap";
 import { ProfileAvatar } from "./screens/ProfileAvatar";
 import { Referral } from "./screens/Referral";
+import { Icon } from "./components/Icon";
+import { X5Brand } from "./components/X5Brand";
+import { mascotName } from "./components/Mascot";
 import { PromoStudio } from "./promo/PromoStudio";
+import { LandingPage } from "./landing/LandingPage";
 import {
   ASSIGNMENT_STORAGE_KEY,
   CATEGORY_LABELS,
@@ -23,35 +25,13 @@ import {
   type PublishedAssignment,
 } from "./promo/types";
 
-type Tab = "profile" | "challenge" | "referral";
+type Tab = "profile" | "challenge" | "categories" | "referral";
 
-const IconSprout = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 21v-8" />
-    <path d="M12 13c0-4 3-6 7-6 0 4-3 6-7 6z" />
-    <path d="M12 15c0-3-2.5-5-6-5 0 3 2.5 5 6 5z" />
-  </svg>
-);
-const IconFlag = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6 21V4" />
-    <path d="M6 4h11l-2.5 4L17 12H6" />
-  </svg>
-);
-const IconGift = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="4" y="9" width="16" height="11" rx="1.6" />
-    <path d="M2.5 6.5h19V9h-19z" />
-    <path d="M12 6.5V20" />
-    <path d="M12 6.5S10.5 3 8.6 3.6 8 6.5 12 6.5z" />
-    <path d="M12 6.5s1.5-3.5 3.4-2.9S16 6.5 12 6.5z" />
-  </svg>
-);
-
-const TABS: { id: Tab; label: string; icon: () => ReactElement }[] = [
-  { id: "profile", label: "Прогресс", icon: IconSprout },
-  { id: "challenge", label: "Челлендж", icon: IconFlag },
-  { id: "referral", label: "Друзья", icon: IconGift },
+const TABS: { id: Tab; label: string; icon: string }[] = [
+  { id: "profile", label: "Главная", icon: "progress" },
+  { id: "challenge", label: "Цель", icon: "target" },
+  { id: "categories", label: "Категории", icon: "cart" },
+  { id: "referral", label: "Друзья", icon: "friends" },
 ];
 
 interface PhoneProps {
@@ -59,7 +39,6 @@ interface PhoneProps {
   challenge?: ChallengeScreenView;
   referral?: ReferralScreenView;
   interactive?: boolean;
-  variant: "main" | "side";
   publishedPromo?: Promo;
 }
 
@@ -89,6 +68,35 @@ interface PublishedContext {
   assignment: PublishedAssignment;
 }
 
+function buildDemoProfiles(base: ProfileScreenView): ProfileScreenView[] {
+  return DEMO_PROFILE_PRESETS.map((preset) => {
+    const source = preset.source ?? base;
+    const isCurrentProfile = preset.stage === 3;
+    return {
+      ...source,
+      user_id: isCurrentProfile ? base.user_id : preset.userId,
+      display_name: isCurrentProfile ? base.display_name : preset.name,
+      avatar: {
+        ...source.avatar,
+        level: preset.stage - 1,
+        visual_stage: preset.stage,
+        state: preset.state ?? "progressing",
+        unlocked_customizations: preset.unlocked,
+      },
+      savings: {
+        total_saved_amount: preset.saved,
+        current_threshold: preset.currentThreshold,
+        next_threshold: preset.nextThreshold,
+        progress_ratio: preset.progressRatio,
+      },
+      streak: {
+        ...source.streak,
+        streak_count: preset.streak,
+      },
+    };
+  });
+}
+
 function readPublishedContext(): PublishedContext | undefined {
   try {
     const savedAssignment = window.localStorage.getItem(ASSIGNMENT_STORAGE_KEY);
@@ -108,17 +116,17 @@ function readPublishedContext(): PublishedContext | undefined {
   }
 }
 
-function Phone({ profile, challenge, referral, interactive = false, variant, publishedPromo }: PhoneProps) {
+function Phone({ profile, challenge, referral, interactive = false, publishedPromo }: PhoneProps) {
   const [tab, setTab] = useState<Tab>("profile");
   const activeTab: Tab = interactive ? tab : "profile";
   const hi = (profile.display_name ?? "друг").split(/[\s·]+/)[0];
 
   return (
-    <div className={`device device--${variant}`}>
+    <div className="device device--main">
       <div className="device__scroll">
         <header className="topbar">
           <div>
-            <div className="topbar__eyebrow">Х5 Клуб · Рост</div>
+            <div className="topbar__eyebrow"><X5Brand className="client-brand" compact /><span>демо</span></div>
             <div className="topbar__hi">Привет, {hi}</div>
           </div>
           <div className="topbar__ava" aria-hidden>
@@ -129,12 +137,20 @@ function Phone({ profile, challenge, referral, interactive = false, variant, pub
         <main>
           {activeTab === "profile" && (
             <>
-              <ProfileAvatar view={profile} />
+              <ProfileAvatar
+                view={profile}
+                challenge={challenge}
+                onOpenGoal={() => setTab("challenge")}
+                onOpenCategories={() => setTab("categories")}
+              />
               {interactive && publishedPromo && <PublishedPromoCard promo={publishedPromo} />}
             </>
           )}
           {interactive && activeTab === "challenge" && challenge && (
             <Challenge view={challenge} />
+          )}
+          {interactive && activeTab === "categories" && (
+            <CategoryMap view={profile} />
           )}
           {interactive && activeTab === "referral" && referral && (
             <Referral view={referral} />
@@ -144,7 +160,6 @@ function Phone({ profile, challenge, referral, interactive = false, variant, pub
 
       <nav className="tabbar" aria-label="Разделы">
         {TABS.map((t) => {
-          const Icon = t.icon;
           return (
             <button
               key={t.id}
@@ -154,7 +169,7 @@ function Phone({ profile, challenge, referral, interactive = false, variant, pub
               aria-current={activeTab === t.id ? "page" : undefined}
               onClick={interactive ? () => setTab(t.id) : undefined}
             >
-              <Icon />
+              <Icon name={t.icon} />
               <span>{t.label}</span>
             </button>
           );
@@ -171,6 +186,12 @@ function GrowthApp() {
   const [published, setPublished] = useState<PublishedContext | undefined>(
     readPublishedContext,
   );
+  const [profileIndex, setProfileIndex] = useState(() => {
+    const account = new URLSearchParams(window.location.search).get("account");
+    const index = DEMO_PROFILE_PRESETS.findIndex((preset) => preset.userId === account);
+    return index >= 0 ? index : 2;
+  });
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const refreshPublishedContext = () => setPublished(readPublishedContext());
@@ -190,33 +211,111 @@ function GrowthApp() {
     };
   }, []);
 
-  const profile: ProfileScreenView = published
+  const baseProfile: ProfileScreenView = published
     ? {
         ...fixtureProfile,
         user_id: published.assignment.client_id,
         display_name: published.assignment.client_name,
       }
     : fixtureProfile;
+  const profiles = buildDemoProfiles(baseProfile);
+  const profile = profiles[profileIndex];
+
+  const selectProfile = (nextIndex: number) => {
+    setProfileIndex((nextIndex + profiles.length) % profiles.length);
+  };
+
+  const changeProfile = (direction: -1 | 1) => {
+    setProfileIndex((current) => (current + direction + profiles.length) % profiles.length);
+  };
+
+  const finishSwipe = (clientX: number, clientY: number) => {
+    if (swipeStart.current === null) return;
+    const distance = clientX - swipeStart.current.x;
+    const verticalDistance = clientY - swipeStart.current.y;
+    swipeStart.current = null;
+    if (Math.abs(distance) < 42 || Math.abs(distance) <= Math.abs(verticalDistance)) return;
+    changeProfile(distance < 0 ? 1 : -1);
+  };
 
   return (
     <div className="page">
-      <div className="gallery">
-        <Phone profile={leftProfileView} variant="side" />
-        <Phone
-          profile={profile}
-          challenge={challenge}
-          referral={referral}
-          publishedPromo={published?.promo}
-          interactive
-          variant="main"
-        />
-        <Phone profile={rightProfileView} variant="side" />
+      <div className="demo-shell">
+        <aside className="demo-context" aria-label="Контекст демонстрации">
+          <X5Brand className="demo-brand" />
+          <a href="/landing" className="demo-context__back"><Icon name="arrow-left" /> На лендинг</a>
+          <span className="demo-context__eyebrow">Клиентский сценарий</span>
+          <h1>Экономия становится видимым прогрессом</h1>
+          <p>Покупатель видит одну следующую цель, развитие аватара и карту привычных категорий.</p>
+          <ul>
+            <li><Icon name="receipt" /><span>Прогресс только от проверенных чеков</span></li>
+            <li><Icon name="target" /><span>Одна достижимая цель на неделю</span></li>
+            <li><Icon name="info" /><span>Все данные в сценарии синтетические</span></li>
+          </ul>
+          <a href="/promo-studio" className="demo-context__studio">Открыть Promo Studio <span aria-hidden="true">↗</span></a>
+        </aside>
+        <section className="phone-carousel" aria-label="Демо-аккаунты">
+          <div className="account-switcher">
+            <button type="button" onClick={() => changeProfile(-1)} aria-label="Предыдущий аккаунт">
+              <span aria-hidden="true">←</span>
+            </button>
+            <div className="account-switcher__current" aria-live="polite">
+              <span>Аккаунт {profileIndex + 1} из {profiles.length}</span>
+              <strong>{profile.display_name} · {mascotName(profile.avatar.visual_stage)}</strong>
+            </div>
+            <button type="button" onClick={() => changeProfile(1)} aria-label="Следующий аккаунт">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div
+            className="phone-carousel__viewport"
+            tabIndex={0}
+            aria-label="Телефон с аккаунтом; листайте влево или вправо"
+            onKeyDown={(event) => {
+              if (event.key === "ArrowLeft" || event.key === "ArrowRight") event.preventDefault();
+              if (event.key === "ArrowLeft") changeProfile(-1);
+              if (event.key === "ArrowRight") changeProfile(1);
+            }}
+            onTouchStart={(event) => {
+              const touch = event.changedTouches[0];
+              swipeStart.current = touch ? { x: touch.clientX, y: touch.clientY ?? 0 } : null;
+            }}
+            onTouchCancel={() => { swipeStart.current = null; }}
+            onTouchEnd={(event) => finishSwipe(event.changedTouches[0]?.clientX ?? 0, event.changedTouches[0]?.clientY ?? 0)}
+          >
+            <Phone
+              key={profile.user_id}
+              profile={profile}
+              challenge={{ ...challenge, user_id: profile.user_id }}
+              referral={{ ...referral, user_id: profile.user_id }}
+              publishedPromo={profileIndex === 2 ? published?.promo : undefined}
+              interactive
+            />
+          </div>
+
+          <div className="account-dots" aria-label="Выбор демо-аккаунта">
+            {profiles.map((item, index) => (
+              <button
+                key={item.user_id}
+                type="button"
+                aria-label={`${item.display_name}, этап ${item.avatar.visual_stage}`}
+                aria-current={index === profileIndex ? "true" : undefined}
+                onClick={() => selectProfile(index)}
+              />
+            ))}
+          </div>
+          <p className="phone-carousel__hint">Листайте аккаунты — от почки до апельсинки</p>
+        </section>
       </div>
     </div>
   );
 }
 
 export function App() {
+  if (window.location.pathname.startsWith("/landing")) {
+    return <LandingPage />;
+  }
   if (window.location.pathname.startsWith("/promo-studio")) {
     return <PromoStudio />;
   }

@@ -38,7 +38,7 @@ describe("Referral", () => {
   it("показывает ссылку-приглашение и сумму начислений", () => {
     render(<Referral view={base} />);
     expect(screen.getByText("https://x5.local/i/u1")).toBeInTheDocument();
-    expect(screen.getByText(/Начислено за друзей/)).toBeInTheDocument();
+    expect(screen.getByText(/Уже начислено/)).toBeInTheDocument();
   });
 
   it("рендерит все рефералы с их статусами", () => {

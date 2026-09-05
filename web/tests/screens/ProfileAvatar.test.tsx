@@ -27,9 +27,10 @@ const baseView: ProfileScreenView = {
 };
 
 describe("ProfileAvatar", () => {
-  it("показывает уровень аватара", () => {
+  it("показывает пользовательский этап аватара", () => {
     render(<ProfileAvatar view={baseView} />);
-    expect(screen.getByText("Уровень 2")).toBeInTheDocument();
+    expect(screen.getByText("Этап 3 из 5")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Завязь, этап 3 из 5/ })).toBeInTheDocument();
   });
 
   it("рендерит прогресс-бар с корректным значением", () => {
@@ -40,7 +41,7 @@ describe("ProfileAvatar", () => {
 
   it("перечисляет разблокированные кастомизации", () => {
     render(<ProfileAvatar view={baseView} />);
-    expect(screen.getByText("silver_badge")).toBeInTheDocument();
+    expect(screen.getByText("Серебро")).toBeInTheDocument();
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
@@ -54,7 +55,9 @@ describe("ProfileAvatar", () => {
         }}
       />,
     );
-    expect(screen.getByText("Максимальный уровень достигнут")).toBeInTheDocument();
+    expect(screen.getByText("Все формы аватара открыты")).toBeInTheDocument();
+    expect(screen.getByText("5 из 5")).toBeInTheDocument();
+    expect(screen.getByText("все формы открыты")).toBeInTheDocument();
   });
 
   it("не содержит слов «ИИ»/«AI» (FR-035)", () => {

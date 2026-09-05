@@ -29,8 +29,8 @@ const withChallenge: ChallengeScreenView = {
 describe("Challenge", () => {
   it("показывает текст челленджа и прогресс", () => {
     render(<Challenge view={withChallenge} />);
-    expect(screen.getByText(/Купите 3 раза категорию/)).toBeInTheDocument();
-    expect(screen.getByText("2 из 3")).toBeInTheDocument();
+    expect(screen.getByText(/Сделайте 3 покупки в категории «детское питание»/)).toBeInTheDocument();
+    expect(screen.getByText("2/3")).toBeInTheDocument();
     expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "67");
   });
 
@@ -38,7 +38,7 @@ describe("Challenge", () => {
     render(
       <Challenge view={{ user_id: "u1", iso_week: "2026-W13", challenge: null, notes: [] }} />,
     );
-    expect(screen.getByText(/активного челленджа нет/)).toBeInTheDocument();
+    expect(screen.getByText(/На этой неделе всё спокойно/)).toBeInTheDocument();
   });
 
   it("рендерит заметку про холодный старт", () => {
@@ -47,6 +47,6 @@ describe("Challenge", () => {
         view={{ ...withChallenge, notes: ["cold_start_fallback"] }}
       />,
     );
-    expect(screen.getByText(/по сегменту/)).toBeInTheDocument();
+    expect(screen.getByText(/по рабочему профилю/)).toBeInTheDocument();
   });
 });

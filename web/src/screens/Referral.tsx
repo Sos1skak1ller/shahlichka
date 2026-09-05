@@ -1,4 +1,5 @@
 import { StatusPill } from "../components/StatusPill";
+import { Icon } from "../components/Icon";
 import type { ReferralScreenView } from "../contract/types";
 
 interface Props {
@@ -35,15 +36,23 @@ function copy(text: string): void {
   }
 }
 
+function displayAlias(value?: string | null): string {
+  const clean = (value ?? "друг").replace(/^d-/, "");
+  return clean.charAt(0).toUpperCase() + clean.slice(1);
+}
+
 export function Referral({ view }: Props) {
   return (
     <section className="screen" aria-labelledby="referral-title">
-      <h1 id="referral-title" className="screen__eyebrow">
-        Пригласить друга
-      </h1>
+      <div className="screen-heading">
+        <span className="screen__eyebrow">Вместе выгоднее</span>
+        <h1 id="referral-title">Пригласить друга</h1>
+        <p>Награда появится только после первой подтверждённой покупки друга.</p>
+      </div>
 
-      <div className="card card--dark">
-        <div className="card__k">Ваша ссылка-приглашение</div>
+      <div className="card card--dark referral-hero">
+        <div className="referral-hero__icon"><Icon name="friends" /></div>
+        <div className="card__k">Ссылка-приглашение</div>
         <div className="ref__link">
           <code>{view.invite_link}</code>
           <button type="button" className="ref__copy" onClick={() => copy(view.invite_link)}>
@@ -51,11 +60,13 @@ export function Referral({ view }: Props) {
           </button>
         </div>
         <div className="ref__sum">
-          Начислено за друзей: <strong>{rub(view.released_reward_total)}</strong>
-          {view.budget_remaining_this_week != null && (
-            <> · на этой неделе доступно {rub(view.budget_remaining_this_week)}</>
-          )}
+          Уже начислено: <strong>{rub(view.released_reward_total)}</strong>
         </div>
+      </div>
+
+      <div className="referral-rule">
+        <Icon name="check" />
+        <span><strong>Честное условие</strong>Сначала покупка и проверка чека — потом награда обеим сторонам.</span>
       </div>
 
       {view.referrals.length === 0 ? (
@@ -66,7 +77,7 @@ export function Referral({ view }: Props) {
         <ul className="ref__list">
           {view.referrals.map((r) => {
             const st = STATUS[r.status] ?? { label: r.status, tone: "wait" as const };
-            const alias = r.invitee_alias ?? "друг";
+            const alias = displayAlias(r.invitee_alias);
             return (
               <li key={r.referral_id} className="ref__item">
                 <span className="ref__ava" aria-hidden>

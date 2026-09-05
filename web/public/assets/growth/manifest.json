@@ -1,34 +1,39 @@
 {
   "pack": "x5-growth-full-ui-assets",
-  "version": 1,
+  "version": 2,
   "brandStatus": "project-concept-not-official-x5-brandbook",
+  "visualDirection": "handcrafted-matte-claymation",
   "client": {
     "hero": [
       {
-        "path": "/assets/growth/hero/progress-leaf-v1.png",
+        "path": "/assets/growth/hero/progress-leaf-clay-v2.png",
         "role": "profile-progress",
         "size": "1024x1536",
         "safeZone": "top-28-percent",
-        "fit": "cover"
+        "fit": "cover",
+        "style": "handcrafted-claymation"
       },
       {
-        "path": "/assets/growth/hero/level-up-orange-v1.png",
+        "path": "/assets/growth/hero/level-up-orange-clay-v2.png",
         "role": "level-up",
         "size": "1024x1536",
         "safeZone": "top-22-percent",
-        "fit": "cover"
+        "fit": "cover",
+        "style": "handcrafted-claymation"
       }
     ],
     "illustrations": [
       {
-        "path": "/assets/growth/illustrations/client-challenge-v1.png",
+        "path": "/assets/growth/illustrations/client-challenge-clay-v2.png",
         "role": "weekly-challenge",
-        "safeZone": "top-25-percent"
+        "safeZone": "top-25-percent",
+        "style": "handcrafted-claymation"
       },
       {
-        "path": "/assets/growth/illustrations/client-referral-v1.png",
+        "path": "/assets/growth/illustrations/client-referral-clay-v2.png",
         "role": "referral",
-        "safeZone": "top-28-percent"
+        "safeZone": "top-28-percent",
+        "style": "handcrafted-claymation"
       },
       {
         "path": "/assets/growth/illustrations/client-empty-v1.png",
