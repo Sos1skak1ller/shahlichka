@@ -92,42 +92,47 @@ export function ProfileAvatar({ view, challenge, onOpenGoal, onOpenCategories }:
 
   return (
     <section className="screen home-screen" aria-label="Главная">
-      <div className="hero hero--integrated">
-        <div className="hero__stage">
-          <Mascot stage={stage} state={avatar.state} live />
-        </div>
-        <div className="hero__identity">
-          <div>
-            <span>Ваш аватар</span>
-            <strong>{mascotName(stage)}</strong>
+      <div className="growth-overview">
+        <div className="hero hero--integrated">
+          <div className="hero__stage">
+            <Mascot stage={stage} state={avatar.state} live />
           </div>
-          <span className="hero__lvl" data-max={avatar.state === "max_level"}>
-            Этап {stage} из 5
-          </span>
+          <div className="hero__identity">
+            <div>
+              <span>Ваш аватар</span>
+              <strong>{mascotName(stage)}</strong>
+            </div>
+            <span className="hero__lvl" data-max={avatar.state === "max_level"}>
+              Этап {stage} из 5
+            </span>
+            <span className="hero__steps" aria-hidden="true">
+              {[1, 2, 3, 4, 5].map((step) => <i key={step} data-reached={step <= stage} />)}
+            </span>
+          </div>
+          <p className="hero__rule"><Icon name="check" /> Меняется только от подтверждённой экономии</p>
         </div>
-        <p className="hero__rule"><Icon name="check" /> Меняется только от подтверждённой экономии</p>
-      </div>
 
-      <div className="card savings-card">
-        <div className="card__k">Накопленная экономия</div>
-        <div className="gauge">
-          <ProgressRing
-            ratio={savings.progress_ratio}
-            centerTop={`${pct}%`}
-            centerBottom={toNext === null ? "МАКСИМУМ" : `ДО ЭТАПА ${Math.min(stage + 1, 5)}`}
-            size={120}
-            label="Прогресс до следующего этапа"
-          />
-          <div className="gauge__side">
-            <div className="card__big">{rub(savings.total_saved_amount)}</div>
-            <div className="card__hint">
-              {toNext === null
-                ? "Все формы аватара открыты"
-                : `Ещё ${rub(toNext)} до новой формы`}
+        <div className="card savings-card">
+          <div className="card__k">Накопленная экономия</div>
+          <div className="gauge">
+            <ProgressRing
+              ratio={savings.progress_ratio}
+              centerTop={`${pct}%`}
+              centerBottom={toNext === null ? "МАКСИМУМ" : `ДО ЭТАПА ${Math.min(stage + 1, 5)}`}
+              size={120}
+              label="Прогресс до следующего этапа"
+            />
+            <div className="gauge__side">
+              <div className="card__big">{rub(savings.total_saved_amount)}</div>
+              <div className="card__hint">
+                {toNext === null
+                  ? "Все формы аватара открыты"
+                  : `Ещё ${rub(toNext)} до новой формы`}
+              </div>
             </div>
           </div>
+          <p className="savings-card__source"><Icon name="receipt" /> Скидки и баллы из проверенных чеков</p>
         </div>
-        <p className="savings-card__source"><Icon name="receipt" /> Скидки и баллы из проверенных чеков</p>
       </div>
 
       <div className="home-stats">

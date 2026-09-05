@@ -400,18 +400,32 @@
   50% { transform: translateY(-4px); }
 }
 
-/* White-background characters share the white app surface; no nested image card. */
+/* One surface connects the character, its stage and the savings that grow it. */
+.page .growth-overview {
+  isolation: isolate;
+  background: linear-gradient(155deg, var(--brand-mint), #f3f7ee 70%);
+  border-radius: 28px;
+  padding: 0 18px;
+  margin-bottom: 14px;
+}
 .page .hero--integrated {
-  padding: 0 4px 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  padding: 10px 0 14px;
+  margin: 0;
   background: transparent;
   border-radius: 0;
 }
 
 .page .hero--integrated .hero__stage {
   position: relative;
-  width: min(100%, 244px);
-  height: 260px;
-  margin: -6px auto 4px;
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  height: 218px;
+  min-width: 0;
+  margin: 0;
   overflow: visible;
   background: transparent;
   border: 0;
@@ -423,17 +437,28 @@
   content: "";
   display: block;
   position: absolute;
-  inset: auto auto 12px 50%;
-  width: 110px;
-  height: 14px;
+  inset: auto auto 19px 50%;
+  width: 76px;
+  height: 10px;
   border-radius: 50%;
   transform: translateX(-50%);
   background: radial-gradient(ellipse, #05310a22, #05310a00 72%);
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 }
 
-.page .mascot--live { position: relative; transform-origin: 50% 92%; }
+.page .mascot--live {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  z-index: 1;
+  /* Blend the entire group: a transform on the inner image must not isolate
+     its white matte from the overview background. */
+  mix-blend-mode: multiply;
+}
 .page .mascot__greeting {
   display: block;
   width: 100%;
@@ -447,21 +472,42 @@
   -webkit-tap-highlight-color: transparent;
 }
 .page .mascot--live img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   pointer-events: none;
-  /* The generated seamless set is RGB with a white matte. Multiplying it
-     into the app canvas makes that matte disappear while preserving the
-     character's color and soft edge pixels. */
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
   filter: contrast(1.04);
   transform-origin: 50% 92%;
   animation: mascot-greet 1100ms ease-in-out both;
 }
 .page .hero--integrated .hero__identity {
-  padding-top: 14px;
-  border-top: 1px solid var(--growth-border);
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-.page .hero--integrated .hero__lvl { background: var(--brand-mint); }
+.page .hero--integrated .hero__identity strong { font-size: 22px; hyphens: auto; overflow-wrap: anywhere; }
+.page .hero--integrated .hero__lvl { background: #ffffffb3; }
+.page .hero__steps { display: flex; gap: 5px; }
+.page .hero__steps i { width: 16px; height: 4px; border-radius: 4px; background: #cbdac2; }
+.page .hero__steps i[data-reached="true"] { background: var(--brand-ink); }
+.page .hero--integrated .hero__rule { grid-column: 1 / -1; margin: 0; font-size: 11px; }
+.page .growth-overview .savings-card {
+  padding: 16px 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #05310a18;
+  border-radius: 0;
+}
 @keyframes mascot-greet {
   0%, 100% { transform: rotate(0deg) scale(1); }
   24% { transform: rotate(-1.8deg) scale(1.012, .99); }
