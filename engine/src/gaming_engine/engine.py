@@ -183,19 +183,41 @@ class Engine:
     # ------------------------------------------------------------------ #
     # Ранжирование акций (US6) — без отдельного экрана (FR-007)
     # ------------------------------------------------------------------ #
-    def rank_promos(self, user_id: str, as_of_ts: str | None = None):
+    def rank_promos(
+        self,
+        user_id: str,
+        as_of_ts: str | None = None,
+        *,
+        exclude_active: bool = True,
+    ):
+        """Персональное ранжирование пула акций.
+
+        Если пакет `recsys` установлен и артефакт обучен, категории сначала отбирает
+        рекомендатель (ALS), и промо фильтруются по его шортлисту. Без артефакта
+        работает прежняя RFM-эвристика — движок не зависит от наличия модели.
+
+        `exclude_active` выбрасывает из шортлиста категории, которые пользователь и
+        так покупает регулярно: платить за покупку, которая случилась бы и без промо,
+        — это каннибализация, а не рост.
+        """
+        from gaming_engine import reco_adapter
         from gaming_engine.challenge import features as _features
         from gaming_engine.promo import rank_promos as _rank
 
         meta = self.meta(user_id)
         at = as_of_ts or self._latest_ts(user_id) or "2026-01-05T00:00:00Z"
+        events = self.log.user_events(user_id)
         feats = _features.build(
-            self.log.user_events(user_id),
+            events,
             archetype=meta.archetype,
             avatar_level=self.avatar_state(user_id).level,
             as_of_week=iso_week(at),
         )
-        return _rank(feats, segment=meta.segment)
+        exclude = set(feats.by_category) if exclude_active else set()
+        shortlist = reco_adapter.category_shortlist(
+            events, exclude=exclude, as_of_week=iso_week(at)
+        )
+        return _rank(feats, segment=meta.segment, shortlist=shortlist)
 
     def get_referral_view(self, user_id: str) -> ReferralScreenView:
         meta = self.meta(user_id)

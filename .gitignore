@@ -31,3 +31,7 @@ data/*.csv
 
 # generated (fixtures/out/*.json are committed — regenerated deterministically by fixtures/build.py)
 sim/out/
+
+# recsys: сырые датасеты и обученные артефакты в репозиторий не коммитим
+recsys/data/
+recsys/artifacts/

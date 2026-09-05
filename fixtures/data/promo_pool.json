@@ -3,7 +3,7 @@
   "approval_status": "pending_marketing_review",
   "demo_only": true,
   "replace_before_pilot": true,
-  "note": "Временный демонстрационный пул Promo Studio. Значения скидок и влияния на маржу иллюстративные и не одобрены маркетологом. Все записи demo_* нужно заменить после продуктовой и экономической проверки.",
+  "note": "Временный демонстрационный пул Promo Studio. Базовые записи заведены вручную, остальные сгенерированы по fixtures/data/categories.json. Значения скидок и влияния на маржу иллюстративные и не одобрены маркетологом. Категории 18+ исключены осознанно. Все записи demo_* нужно заменить после продуктовой и экономической проверки.",
   "promos": [
     {
       "promo_id": "demo_groceries_7pct",
@@ -11,12 +11,19 @@
       "description": "Тестовое промо на товары повседневной продуктовой корзины.",
       "objective": "retain_category",
       "category": "groceries",
-      "shopping_missions": ["regular_replenishment"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "percent",
       "discount_value": 7,
       "margin_impact": 0.7,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "category_repeat_rate",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -27,12 +34,20 @@
       "description": "Тестовая фиксированная скидка на категорию товаров для дома.",
       "objective": "retain_category",
       "category": "household",
-      "shopping_missions": ["home_care", "stock_up"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "fixed",
       "discount_value": 50,
       "margin_impact": 0.6,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "category_repeat_rate",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -43,12 +58,20 @@
       "description": "Тестовая фиксированная скидка на привычную категорию гигиены.",
       "objective": "basket_completion",
       "category": "hygiene",
-      "shopping_missions": ["home_care", "basket_completion"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "home_care",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "fixed",
       "discount_value": 40,
       "margin_impact": 0.55,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "incremental_margin",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -59,12 +82,20 @@
       "description": "Тестовая процентная скидка на молочную категорию.",
       "objective": "retain_category",
       "category": "dairy",
-      "shopping_missions": ["regular_replenishment", "family_shopping"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "percent",
       "discount_value": 8,
       "margin_impact": 0.45,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "category_repeat_rate",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -75,12 +106,19 @@
       "description": "Тестовое промо на категорию снеков.",
       "objective": "expand_categories",
       "category": "snacks",
-      "shopping_missions": ["quick_meal", "basket_completion"],
-      "channels": ["in_store"],
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store"
+      ],
       "discount_type": "percent",
       "discount_value": 12,
       "margin_impact": 0.35,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "unique_categories_per_active_user",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -91,12 +129,20 @@
       "description": "Тестовое промо для проверки релевантности категории в демо-профилях.",
       "objective": "retain_category",
       "category": "baby_food",
-      "shopping_missions": ["family_shopping", "regular_replenishment"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "family_shopping",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "percent",
       "discount_value": 10,
       "margin_impact": 0.5,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "category_repeat_rate",
       "approval_status": "pending_marketing_review",
       "demo_only": true
@@ -107,13 +153,1509 @@
       "description": "Тестовое промо для проверки персонального ранжирования категории.",
       "objective": "retain_category",
       "category": "diapers",
-      "shopping_missions": ["family_shopping", "stock_up"],
-      "channels": ["in_store", "delivery"],
+      "shopping_missions": [
+        "family_shopping",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
       "discount_type": "percent",
       "discount_value": 10,
       "margin_impact": 0.5,
-      "eligibility_rules": { "segments": [] },
+      "eligibility_rules": {
+        "segments": []
+      },
       "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_produce_6pct",
+      "title": "Выгода: овощи и фрукты",
+      "description": "Тестовое промо на категорию «Овощи и фрукты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "produce",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 6,
+      "margin_impact": 0.25,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_produce_20rub",
+      "title": "Овощи и фрукты: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Овощи и фрукты». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "produce",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 20,
+      "margin_impact": 0.2,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_greens_8pct",
+      "title": "Выгода: зелень и салаты",
+      "description": "Тестовое промо на категорию «Зелень и салаты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "greens",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 8,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_meat_7pct",
+      "title": "Выгода: мясо и птица",
+      "description": "Тестовое промо на категорию «Мясо и птица». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "meat",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 7,
+      "margin_impact": 0.3,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_meat_30rub",
+      "title": "Мясо и птица: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Мясо и птица». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "meat",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 30,
+      "margin_impact": 0.25,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_fish_8pct",
+      "title": "Выгода: рыба и морепродукты",
+      "description": "Тестовое промо на категорию «Рыба и морепродукты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "fish",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 8,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_deli_10pct",
+      "title": "Выгода: колбасы и деликатесы",
+      "description": "Тестовое промо на категорию «Колбасы и деликатесы». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "deli",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 10,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_deli_40rub",
+      "title": "Колбасы и деликатесы: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Колбасы и деликатесы». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "deli",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 40,
+      "margin_impact": 0.4,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_cheese_11pct",
+      "title": "Выгода: сыры",
+      "description": "Тестовое промо на категорию «Сыры». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "cheese",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_cheese_50rub",
+      "title": "Сыры: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Сыры». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "cheese",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_dairy_10pct",
+      "title": "Выгода: молочные продукты",
+      "description": "Тестовое промо на категорию «Молочные продукты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "dairy",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 10,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_eggs_8pct",
+      "title": "Выгода: яйца",
+      "description": "Тестовое промо на категорию «Яйца». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "eggs",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 8,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_eggs_40rub",
+      "title": "Яйца: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Яйца». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "eggs",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 40,
+      "margin_impact": 0.3,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_bakery_9pct",
+      "title": "Выгода: хлеб и выпечка",
+      "description": "Тестовое промо на категорию «Хлеб и выпечка». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "bakery",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 9,
+      "margin_impact": 0.4,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_bakery_40rub",
+      "title": "Хлеб и выпечка: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Хлеб и выпечка». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "bakery",
+      "shopping_missions": [
+        "regular_replenishment",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 40,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_grains_11pct",
+      "title": "Выгода: крупы и бакалея",
+      "description": "Тестовое промо на категорию «Крупы и бакалея». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "grains",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_grains_50rub",
+      "title": "Крупы и бакалея: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Крупы и бакалея». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "grains",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_pasta_11pct",
+      "title": "Выгода: макароны",
+      "description": "Тестовое промо на категорию «Макароны». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "pasta",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_pasta_50rub",
+      "title": "Макароны: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Макароны». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "pasta",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_oils_11pct",
+      "title": "Выгода: масла и соусы",
+      "description": "Тестовое промо на категорию «Масла и соусы». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "oils",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_oils_50rub",
+      "title": "Масла и соусы: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Масла и соусы». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "oils",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_canned_12pct",
+      "title": "Выгода: консервы",
+      "description": "Тестовое промо на категорию «Консервы». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "canned",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_spices_15pct",
+      "title": "Выгода: специи и приправы",
+      "description": "Тестовое промо на категорию «Специи и приправы». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "spices",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 15,
+      "margin_impact": 0.7,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_sugar_flour_8pct",
+      "title": "Выгода: сахар и мука",
+      "description": "Тестовое промо на категорию «Сахар и мука». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "sugar_flour",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 8,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_groceries_10pct",
+      "title": "Выгода: базовая корзина",
+      "description": "Тестовое промо на категорию «Базовая корзина». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "groceries",
+      "shopping_missions": [
+        "stock_up",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 10,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_frozen_11pct",
+      "title": "Выгода: замороженные продукты",
+      "description": "Тестовое промо на категорию «Замороженные продукты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "frozen",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_frozen_50rub",
+      "title": "Замороженные продукты: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Замороженные продукты». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "frozen",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_ready_meals_14pct",
+      "title": "Выгода: готовая еда",
+      "description": "Тестовое промо на категорию «Готовая еда». Значения не согласованы маркетологом.",
+      "objective": "trade_up",
+      "category": "ready_meals",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 14,
+      "margin_impact": 0.65,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_ice_cream_11pct",
+      "title": "Выгода: мороженое",
+      "description": "Тестовое промо на категорию «Мороженое». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "ice_cream",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_confectionery_13pct",
+      "title": "Выгода: кондитерские изделия",
+      "description": "Тестовое промо на категорию «Кондитерские изделия». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "confectionery",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 13,
+      "margin_impact": 0.6,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_confectionery_60rub",
+      "title": "Кондитерские изделия: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Кондитерские изделия». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "confectionery",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 60,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_chocolate_12pct",
+      "title": "Выгода: шоколад и конфеты",
+      "description": "Тестовое промо на категорию «Шоколад и конфеты». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "chocolate",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_chocolate_60rub",
+      "title": "Шоколад и конфеты: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Шоколад и конфеты». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "chocolate",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 60,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_snacks_13pct",
+      "title": "Выгода: снеки и чипсы",
+      "description": "Тестовое промо на категорию «Снеки и чипсы». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "snacks",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 13,
+      "margin_impact": 0.6,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_nuts_dried_14pct",
+      "title": "Выгода: орехи и сухофрукты",
+      "description": "Тестовое промо на категорию «Орехи и сухофрукты». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "nuts_dried",
+      "shopping_missions": [
+        "quick_meal",
+        "basket_completion"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 14,
+      "margin_impact": 0.65,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_coffee_13pct",
+      "title": "Выгода: кофе",
+      "description": "Тестовое промо на категорию «Кофе». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "coffee",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 13,
+      "margin_impact": 0.6,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_coffee_60rub",
+      "title": "Кофе: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Кофе». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "coffee",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 60,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_tea_14pct",
+      "title": "Выгода: чай",
+      "description": "Тестовое промо на категорию «Чай». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "tea",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 14,
+      "margin_impact": 0.65,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_tea_60rub",
+      "title": "Чай: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Чай». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "tea",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 60,
+      "margin_impact": 0.6,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_water_9pct",
+      "title": "Выгода: вода",
+      "description": "Тестовое промо на категорию «Вода». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "water",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 9,
+      "margin_impact": 0.4,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_water_40rub",
+      "title": "Вода: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Вода». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "water",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 40,
+      "margin_impact": 0.35,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_soft_drinks_11pct",
+      "title": "Выгода: газированные напитки",
+      "description": "Тестовое промо на категорию «Газированные напитки». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "soft_drinks",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_soft_drinks_50rub",
+      "title": "Газированные напитки: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Газированные напитки». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "soft_drinks",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 50,
+      "margin_impact": 0.45,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_juices_11pct",
+      "title": "Выгода: соки",
+      "description": "Тестовое промо на категорию «Соки». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "juices",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_energy_drinks_12pct",
+      "title": "Выгода: энергетики",
+      "description": "Тестовое промо на категорию «Энергетики». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "energy_drinks",
+      "shopping_missions": [
+        "regular_replenishment",
+        "quick_meal"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_baby_food_11pct",
+      "title": "Выгода: детское питание",
+      "description": "Тестовое промо на категорию «Детское питание». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "baby_food",
+      "shopping_missions": [
+        "family_shopping",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_diapers_11pct",
+      "title": "Выгода: подгузники",
+      "description": "Тестовое промо на категорию «Подгузники». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "diapers",
+      "shopping_missions": [
+        "family_shopping",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_baby_care_12pct",
+      "title": "Выгода: детская гигиена",
+      "description": "Тестовое промо на категорию «Детская гигиена». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "baby_care",
+      "shopping_missions": [
+        "family_shopping",
+        "regular_replenishment"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_hygiene_13pct",
+      "title": "Выгода: гигиена",
+      "description": "Тестовое промо на категорию «Гигиена». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "hygiene",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 13,
+      "margin_impact": 0.6,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_cosmetics_16pct",
+      "title": "Выгода: косметика",
+      "description": "Тестовое промо на категорию «Косметика». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "cosmetics",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 16,
+      "margin_impact": 0.75,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_pharmacy_11pct",
+      "title": "Выгода: аптечные товары",
+      "description": "Тестовое промо на категорию «Аптечные товары». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "pharmacy",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 11,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_vitamins_15pct",
+      "title": "Выгода: витамины и бад",
+      "description": "Тестовое промо на категорию «Витамины и БАД». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "vitamins",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 15,
+      "margin_impact": 0.7,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_household_14pct",
+      "title": "Выгода: товары для дома",
+      "description": "Тестовое промо на категорию «Товары для дома». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "household",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 14,
+      "margin_impact": 0.65,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_household_chemicals_15pct",
+      "title": "Выгода: бытовая химия",
+      "description": "Тестовое промо на категорию «Бытовая химия». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "household_chemicals",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 15,
+      "margin_impact": 0.7,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_household_chemicals_70rub",
+      "title": "Бытовая химия: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Бытовая химия». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "household_chemicals",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 70,
+      "margin_impact": 0.65,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_paper_goods_12pct",
+      "title": "Выгода: бумажная продукция",
+      "description": "Тестовое промо на категорию «Бумажная продукция». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "paper_goods",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_paper_goods_60rub",
+      "title": "Бумажная продукция: фиксированная выгода",
+      "description": "Тестовая фиксированная скидка на «Бумажная продукция». Значения не согласованы маркетологом.",
+      "objective": "basket_completion",
+      "category": "paper_goods",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "fixed",
+      "discount_value": 60,
+      "margin_impact": 0.5,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "incremental_margin",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_kitchenware_18pct",
+      "title": "Выгода: посуда и кухня",
+      "description": "Тестовое промо на категорию «Посуда и кухня». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "kitchenware",
+      "shopping_missions": [
+        "home_care",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 18,
+      "margin_impact": 0.8,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_pet_food_12pct",
+      "title": "Выгода: корм для животных",
+      "description": "Тестовое промо на категорию «Корм для животных». Значения не согласованы маркетологом.",
+      "objective": "retain_category",
+      "category": "pet_food",
+      "shopping_missions": [
+        "regular_replenishment",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 12,
+      "margin_impact": 0.55,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "category_repeat_rate",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_pet_supplies_15pct",
+      "title": "Выгода: товары для животных",
+      "description": "Тестовое промо на категорию «Товары для животных». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "pet_supplies",
+      "shopping_missions": [
+        "regular_replenishment",
+        "stock_up"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 15,
+      "margin_impact": 0.7,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_seasonal_18pct",
+      "title": "Выгода: сезонные товары",
+      "description": "Тестовое промо на категорию «Сезонные товары». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "seasonal",
+      "shopping_missions": [
+        "basket_completion",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 18,
+      "margin_impact": 0.8,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
+      "approval_status": "pending_marketing_review",
+      "demo_only": true
+    },
+    {
+      "promo_id": "demo_flowers_19pct",
+      "title": "Выгода: цветы",
+      "description": "Тестовое промо на категорию «Цветы». Значения не согласованы маркетологом.",
+      "objective": "expand_categories",
+      "category": "flowers",
+      "shopping_missions": [
+        "basket_completion",
+        "family_shopping"
+      ],
+      "channels": [
+        "in_store",
+        "delivery"
+      ],
+      "discount_type": "percent",
+      "discount_value": 19,
+      "margin_impact": 0.85,
+      "eligibility_rules": {
+        "segments": []
+      },
+      "target_metric": "unique_categories_per_active_user",
       "approval_status": "pending_marketing_review",
       "demo_only": true
     }

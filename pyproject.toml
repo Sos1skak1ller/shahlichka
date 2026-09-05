@@ -6,14 +6,16 @@ requires-python = ">=3.11"
 dependencies = [
     "gaming-engine",
     "gaming-sim",
+    "recsys",
 ]
 
 [tool.uv.workspace]
-members = ["engine", "sim"]
+members = ["engine", "sim", "recsys"]
 
 [tool.uv.sources]
 gaming-engine = { workspace = true }
 gaming-sim = { workspace = true }
+recsys = { workspace = true }
 
 [dependency-groups]
 dev = [

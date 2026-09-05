@@ -1,0 +1,79 @@
+{
+  "note": "Товарная таксономия продуктовой сети у дома. Единый источник правды для генератора синтетики, пула промо, рекомендателя и экранных подписей. Значения base_weight / margin_index / segment_affinity — иллюстративные допущения команды, не данные X5.",
+  "dataset_kind": "demo_seed",
+  "approval_status": "pending_marketing_review",
+  "cadence_weeks": { "weekly": 1, "biweekly": 2, "monthly": 4, "rare": 12 },
+  "groups": {
+    "fresh": "Свежее",
+    "pantry": "Бакалея",
+    "frozen_ready": "Заморозка и готовое",
+    "sweets_snacks": "Сладкое и снеки",
+    "drinks": "Напитки",
+    "restricted": "18+",
+    "kids": "Детское",
+    "care": "Красота и здоровье",
+    "home": "Дом",
+    "pets": "Питомцы",
+    "seasonal": "Сезонное"
+  },
+  "categories": [
+    { "id": "produce", "name": "Овощи и фрукты", "group": "fresh", "cadence": "weekly", "base_weight": 0.95, "margin_index": 0.25, "segment_affinity": { "mature": 1.2, "senior": 1.2 } },
+    { "id": "greens", "name": "Зелень и салаты", "group": "fresh", "cadence": "weekly", "base_weight": 0.45, "margin_index": 0.35, "segment_affinity": { "youth": 1.2, "mature": 1.2 } },
+    { "id": "meat", "name": "Мясо и птица", "group": "fresh", "cadence": "weekly", "base_weight": 0.8, "margin_index": 0.3, "segment_affinity": { "mature": 1.3, "parents_0_3": 1.1 } },
+    { "id": "fish", "name": "Рыба и морепродукты", "group": "fresh", "cadence": "biweekly", "base_weight": 0.4, "margin_index": 0.35, "segment_affinity": { "senior": 1.3, "mature": 1.1 } },
+    { "id": "deli", "name": "Колбасы и деликатесы", "group": "fresh", "cadence": "weekly", "base_weight": 0.65, "margin_index": 0.45, "segment_affinity": { "bad_habits": 1.3, "senior": 1.1 } },
+    { "id": "cheese", "name": "Сыры", "group": "fresh", "cadence": "weekly", "base_weight": 0.55, "margin_index": 0.5, "segment_affinity": { "mature": 1.2 } },
+    { "id": "dairy", "name": "Молочные продукты", "group": "fresh", "cadence": "weekly", "base_weight": 0.9, "margin_index": 0.45, "segment_affinity": { "parents_0_3": 1.3, "senior": 1.2 } },
+    { "id": "eggs", "name": "Яйца", "group": "fresh", "cadence": "weekly", "base_weight": 0.7, "margin_index": 0.35, "segment_affinity": {} },
+    { "id": "bakery", "name": "Хлеб и выпечка", "group": "fresh", "cadence": "weekly", "base_weight": 0.9, "margin_index": 0.4, "segment_affinity": { "senior": 1.2 } },
+
+    { "id": "grains", "name": "Крупы и бакалея", "group": "pantry", "cadence": "monthly", "base_weight": 0.6, "margin_index": 0.5, "segment_affinity": { "senior": 1.3, "mature": 1.1 } },
+    { "id": "pasta", "name": "Макароны", "group": "pantry", "cadence": "monthly", "base_weight": 0.6, "margin_index": 0.5, "segment_affinity": { "youth": 1.2 } },
+    { "id": "oils", "name": "Масла и соусы", "group": "pantry", "cadence": "monthly", "base_weight": 0.55, "margin_index": 0.5, "segment_affinity": {} },
+    { "id": "canned", "name": "Консервы", "group": "pantry", "cadence": "monthly", "base_weight": 0.45, "margin_index": 0.55, "segment_affinity": { "senior": 1.2, "bad_habits": 1.2 } },
+    { "id": "spices", "name": "Специи и приправы", "group": "pantry", "cadence": "rare", "base_weight": 0.3, "margin_index": 0.7, "segment_affinity": { "mature": 1.2 } },
+    { "id": "sugar_flour", "name": "Сахар и мука", "group": "pantry", "cadence": "monthly", "base_weight": 0.4, "margin_index": 0.35, "segment_affinity": { "senior": 1.3 } },
+    { "id": "groceries", "name": "Базовая корзина", "group": "pantry", "cadence": "weekly", "base_weight": 0.85, "margin_index": 0.45, "segment_affinity": {} },
+
+    { "id": "frozen", "name": "Замороженные продукты", "group": "frozen_ready", "cadence": "biweekly", "base_weight": 0.5, "margin_index": 0.5, "segment_affinity": { "youth": 1.2 } },
+    { "id": "ready_meals", "name": "Готовая еда", "group": "frozen_ready", "cadence": "weekly", "base_weight": 0.45, "margin_index": 0.65, "segment_affinity": { "youth": 1.4, "bad_habits": 1.2 } },
+    { "id": "ice_cream", "name": "Мороженое", "group": "frozen_ready", "cadence": "biweekly", "base_weight": 0.4, "margin_index": 0.5, "segment_affinity": { "youth": 1.3, "parents_0_3": 1.2 } },
+
+    { "id": "confectionery", "name": "Кондитерские изделия", "group": "sweets_snacks", "cadence": "biweekly", "base_weight": 0.5, "margin_index": 0.6, "segment_affinity": { "senior": 1.2 } },
+    { "id": "chocolate", "name": "Шоколад и конфеты", "group": "sweets_snacks", "cadence": "weekly", "base_weight": 0.6, "margin_index": 0.55, "segment_affinity": { "youth": 1.2, "parents_0_3": 1.1 } },
+    { "id": "snacks", "name": "Снеки и чипсы", "group": "sweets_snacks", "cadence": "weekly", "base_weight": 0.55, "margin_index": 0.6, "segment_affinity": { "youth": 1.5, "bad_habits": 1.4 } },
+    { "id": "nuts_dried", "name": "Орехи и сухофрукты", "group": "sweets_snacks", "cadence": "monthly", "base_weight": 0.35, "margin_index": 0.65, "segment_affinity": { "mature": 1.2 } },
+
+    { "id": "coffee", "name": "Кофе", "group": "drinks", "cadence": "monthly", "base_weight": 0.55, "margin_index": 0.6, "segment_affinity": { "youth": 1.3, "mature": 1.2 } },
+    { "id": "tea", "name": "Чай", "group": "drinks", "cadence": "monthly", "base_weight": 0.55, "margin_index": 0.65, "segment_affinity": { "senior": 1.4 } },
+    { "id": "water", "name": "Вода", "group": "drinks", "cadence": "weekly", "base_weight": 0.7, "margin_index": 0.4, "segment_affinity": {} },
+    { "id": "soft_drinks", "name": "Газированные напитки", "group": "drinks", "cadence": "weekly", "base_weight": 0.5, "margin_index": 0.5, "segment_affinity": { "youth": 1.4, "bad_habits": 1.3 } },
+    { "id": "juices", "name": "Соки", "group": "drinks", "cadence": "biweekly", "base_weight": 0.45, "margin_index": 0.5, "segment_affinity": { "parents_0_3": 1.3 } },
+    { "id": "energy_drinks", "name": "Энергетики", "group": "drinks", "cadence": "weekly", "base_weight": 0.2, "margin_index": 0.55, "segment_affinity": { "youth": 2.0, "bad_habits": 1.6 } },
+
+    { "id": "beer", "name": "Пиво", "group": "restricted", "cadence": "weekly", "base_weight": 0.35, "margin_index": 0.35, "age_restricted": true, "segment_affinity": { "bad_habits": 2.2, "youth": 1.2 } },
+    { "id": "wine", "name": "Вино", "group": "restricted", "cadence": "biweekly", "base_weight": 0.3, "margin_index": 0.45, "age_restricted": true, "segment_affinity": { "mature": 1.4, "bad_habits": 1.3 } },
+    { "id": "spirits", "name": "Крепкий алкоголь", "group": "restricted", "cadence": "monthly", "base_weight": 0.2, "margin_index": 0.3, "age_restricted": true, "segment_affinity": { "bad_habits": 2.2 } },
+    { "id": "tobacco", "name": "Табачная продукция", "group": "restricted", "cadence": "weekly", "base_weight": 0.2, "margin_index": 0.12, "age_restricted": true, "segment_affinity": { "bad_habits": 2.8 } },
+
+    { "id": "baby_food", "name": "Детское питание", "group": "kids", "cadence": "weekly", "base_weight": 0.25, "margin_index": 0.5, "segment_affinity": { "parents_0_3": 4.0 } },
+    { "id": "diapers", "name": "Подгузники", "group": "kids", "cadence": "biweekly", "base_weight": 0.22, "margin_index": 0.5, "segment_affinity": { "parents_0_3": 4.5 } },
+    { "id": "baby_care", "name": "Детская гигиена", "group": "kids", "cadence": "monthly", "base_weight": 0.2, "margin_index": 0.55, "segment_affinity": { "parents_0_3": 3.8 } },
+
+    { "id": "hygiene", "name": "Гигиена", "group": "care", "cadence": "monthly", "base_weight": 0.6, "margin_index": 0.6, "segment_affinity": {} },
+    { "id": "cosmetics", "name": "Косметика", "group": "care", "cadence": "rare", "base_weight": 0.3, "margin_index": 0.75, "segment_affinity": { "youth": 1.5, "mature": 1.2 } },
+    { "id": "pharmacy", "name": "Аптечные товары", "group": "care", "cadence": "rare", "base_weight": 0.3, "margin_index": 0.5, "segment_affinity": { "senior": 1.8, "parents_0_3": 1.3 } },
+    { "id": "vitamins", "name": "Витамины и БАД", "group": "care", "cadence": "monthly", "base_weight": 0.25, "margin_index": 0.7, "segment_affinity": { "senior": 1.6, "mature": 1.2 } },
+
+    { "id": "household", "name": "Товары для дома", "group": "home", "cadence": "monthly", "base_weight": 0.55, "margin_index": 0.65, "segment_affinity": {} },
+    { "id": "household_chemicals", "name": "Бытовая химия", "group": "home", "cadence": "monthly", "base_weight": 0.6, "margin_index": 0.7, "segment_affinity": { "parents_0_3": 1.3, "mature": 1.2 } },
+    { "id": "paper_goods", "name": "Бумажная продукция", "group": "home", "cadence": "monthly", "base_weight": 0.6, "margin_index": 0.55, "segment_affinity": { "parents_0_3": 1.3 } },
+    { "id": "kitchenware", "name": "Посуда и кухня", "group": "home", "cadence": "rare", "base_weight": 0.15, "margin_index": 0.8, "segment_affinity": { "mature": 1.2 } },
+
+    { "id": "pet_food", "name": "Корм для животных", "group": "pets", "cadence": "biweekly", "base_weight": 0.3, "margin_index": 0.55, "segment_affinity": { "senior": 1.3, "mature": 1.2 } },
+    { "id": "pet_supplies", "name": "Товары для животных", "group": "pets", "cadence": "rare", "base_weight": 0.15, "margin_index": 0.7, "segment_affinity": { "mature": 1.2 } },
+
+    { "id": "seasonal", "name": "Сезонные товары", "group": "seasonal", "cadence": "rare", "base_weight": 0.2, "margin_index": 0.8, "segment_affinity": {} },
+    { "id": "flowers", "name": "Цветы", "group": "seasonal", "cadence": "rare", "base_weight": 0.15, "margin_index": 0.85, "segment_affinity": { "mature": 1.2 } }
+  ]
+}
