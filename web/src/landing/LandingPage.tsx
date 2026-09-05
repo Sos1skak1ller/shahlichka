@@ -5,6 +5,20 @@ import { mascotAsset, mascotName } from "../components/Mascot";
 import { DEMO_PROFILE_PRESETS } from "../demoProfiles";
 import "./landing.css";
 
+function LandingCharacter({ stage, alt = "", className = "", eager = false }: {
+  stage: number;
+  alt?: string;
+  className?: string;
+  eager?: boolean;
+}) {
+  return (
+    <span className={`landing-character ${className}`}>
+      <img src={mascotAsset(stage, "seamless")} alt={alt}
+        width="1024" height="1536" loading={eager ? "eager" : "lazy"} />
+    </span>
+  );
+}
+
 const PRODUCT_STEPS = [
   {
     icon: "receipt",
@@ -141,9 +155,9 @@ export function LandingPage() {
           </div>
           <div className="landing-hero__visual">
             <span className="landing-hero__caption">От первого листика<br />до большого результата</span>
-            <img className="landing-hero__avatar" src={mascotAsset(2)} alt="Листик — вторая форма аватара Рост" loading="eager" width="1024" height="1536" />
+            <LandingCharacter className="landing-hero__avatar" stage={2} alt="Листик — вторая форма аватара Рост" eager />
             <a className="landing-hero__next" href="#avatars">
-              <img src={mascotAsset(5)} alt="" width="1024" height="1536" />
+              <LandingCharacter stage={5} eager />
               <span>Впереди —<br /><strong>новая форма</strong></span><span aria-hidden="true">↗</span>
             </a>
           </div>
@@ -176,7 +190,7 @@ export function LandingPage() {
               {DEMO_PROFILE_PRESETS.map((preset, index) => <button type="button" key={preset.userId}
                 aria-label={preset.name + ", " + mascotName(preset.stage) + ", этап " + preset.stage}
                 aria-pressed={index === accountIndex} onClick={() => setAccountIndex(index)}>
-                <img src={mascotAsset(preset.stage)} alt="" width="1024" height="1536" loading="lazy" />
+                <LandingCharacter stage={preset.stage} />
                 <span><small>Этап {preset.stage}</small><strong>{mascotName(preset.stage)}</strong></span>
                 <span className="landing-stages__threshold">{money(preset.currentThreshold)}<span aria-hidden="true"> ↗</span></span>
               </button>)}
@@ -200,11 +214,13 @@ export function LandingPage() {
               <div className="landing-phone" aria-live="polite" aria-atomic="true">
                 <div className="landing-phone__top"><span>Рост</span><small>Демо · {accountIndex + 1} из 5</small></div>
                 <h3>Привет, {account.name}</h3>
-                <img key={account.stage} className="landing-phone__avatar" src={mascotAsset(account.stage)} alt={mascotName(account.stage) + ", этап " + account.stage + " из 5"} width="1024" height="1536" loading="lazy" />
-                <div className="landing-phone__stage"><strong>{mascotName(account.stage)}</strong><span>Этап {account.stage}</span></div>
-                <div className="landing-phone__savings"><span>Накопленная экономия</span><strong>{money(account.saved)}</strong>
-                  <progress max={100} value={Math.round(account.progressRatio * 100)} aria-label="Прогресс до следующей формы" />
-                  <small>{account.nextThreshold === null ? "Максимальная форма открыта" : "Ещё " + money(account.nextThreshold - account.saved) + " до новой формы"}</small>
+                <div className="landing-phone__growth">
+                  <LandingCharacter key={account.stage} className="landing-phone__avatar" stage={account.stage} alt={mascotName(account.stage) + ", этап " + account.stage + " из 5"} />
+                  <div className="landing-phone__stage"><strong>{mascotName(account.stage)}</strong><span>Этап {account.stage}</span></div>
+                  <div className="landing-phone__savings"><span>Накопленная экономия</span><strong>{money(account.saved)}</strong>
+                    <progress max={100} value={Math.round(account.progressRatio * 100)} aria-label="Прогресс до следующей формы" />
+                    <small>{account.nextThreshold === null ? "Максимальная форма открыта" : "Ещё " + money(account.nextThreshold - account.saved) + " до новой формы"}</small>
+                  </div>
                 </div>
                 <div className="landing-phone__streak"><Icon name="sparkles" /><span>Недель подряд с покупками: {account.streak}</span></div>
                 <a className="landing-button landing-button--primary" href={"/?account=" + account.userId}>Открыть аккаунт <Arrow /></a>
